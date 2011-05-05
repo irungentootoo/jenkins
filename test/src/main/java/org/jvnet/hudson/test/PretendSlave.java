@@ -4,6 +4,7 @@ import hudson.Extension;
 import hudson.Launcher;
 import hudson.Launcher.LocalLauncher;
 import hudson.Proc;
+import hudson.model.Computer;
 import hudson.model.Descriptor.FormException;
 import hudson.model.Slave;
 import hudson.model.TaskListener;
@@ -28,6 +29,11 @@ public class PretendSlave extends Slave {
      */
     public int numLaunch;
 
+    /**
+     * Tells how many computers where created by this slave.
+     */
+    public int computersCreated;
+
     public PretendSlave(String name, String remoteFS, int numExecutors, Mode mode, String labelString, ComputerLauncher launcher, FakeLauncher faker) throws IOException, FormException {
     	super(name, "pretending a slave", remoteFS, String.valueOf(numExecutors), mode, labelString, launcher, RetentionStrategy.NOOP, Collections.<NodeProperty<?>>emptyList());
         this.faker = faker;
@@ -37,6 +43,10 @@ public class PretendSlave extends Slave {
     	this(name, remoteFS, 1, Mode.NORMAL, labelString, launcher, faker);
     }
 
+    public Computer createComputer() {
+        computersCreated++;
+        return super.createComputer();
+    }
 
     @Override
     public Launcher createLauncher(TaskListener listener) {

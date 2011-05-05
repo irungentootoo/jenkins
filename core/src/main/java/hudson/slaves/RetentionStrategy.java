@@ -98,7 +98,13 @@ public abstract class RetentionStrategy<T extends Computer> extends AbstractDesc
     /**
      * Dummy instance that doesn't do any attempt to retention.
      */
-    public static final RetentionStrategy<Computer> NOOP = new RetentionStrategy<Computer>() {
+    public static final RetentionStrategy<Computer> NOOP = new NoOpRetentionStrategy();
+
+    /**
+     * Dummy {@link RetentionStrategy} that doesn't do any attempt to retention.
+     */
+    public static class NoOpRetentionStrategy extends RetentionStrategy<Computer> {
+
         public long check(Computer c) {
             return 60;
         }

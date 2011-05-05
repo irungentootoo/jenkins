@@ -31,19 +31,23 @@ import com.gargoylesoftware.htmlunit.html.HtmlAnchor;
 import com.gargoylesoftware.htmlunit.html.HtmlElement;
 import com.gargoylesoftware.htmlunit.html.HtmlForm;
 import com.gargoylesoftware.htmlunit.html.HtmlPage;
+import hudson.Launcher;
+import hudson.Proc;
 import hudson.model.Node.Mode;
 import hudson.search.SearchTest;
 import hudson.security.AuthorizationStrategy;
 import hudson.security.SecurityRealm;
+import hudson.slaves.RetentionStrategy;
 import hudson.tasks.Ant;
 import hudson.tasks.BuildStep;
 import hudson.tasks.Ant.AntInstallation;
 import jenkins.model.Jenkins;
-import org.jvnet.hudson.test.Bug;
-import org.jvnet.hudson.test.Email;
-import org.jvnet.hudson.test.HudsonTestCase;
+import org.jvnet.hudson.test.*;
 import org.jvnet.hudson.test.recipes.LocalData;
 
+import static javax.servlet.http.HttpServletResponse.SC_FORBIDDEN;
+
+import java.io.IOException;
 import java.lang.reflect.Field;
 import java.net.HttpURLConnection;
 import java.net.URL;
@@ -193,5 +197,42 @@ public class HudsonTest extends HudsonTestCase {
         value = "some bogus name";
         pv.set(jenkins, value);
         assertNull("invalid primaryView", jenkins.getView(value));
+    }
+
+    /**
+     * Verify that slaves get at most one call on createComputer.
+     */
+    @Bug(9607)
+    public void testUpdateComputerListReentrantSafe() throws Exception {
+        FakeLauncher launcher = new FakeLauncher() {
+            public Proc onLaunch(Launcher.ProcStarter p) {
+                if (true) throw new RuntimeException("Whhoooohooo");
+                return new FinishedProc(0);
+            }
+        };
+        PretendSlave slave1 = createPretendSlave(launcher);
+        slave1.setRetentionStrategy(new DestroyAtOnceRetentionStrategy(hudson));
+        PretendSlave slave2 = createPretendSlave(launcher);
+
+        assertEquals("Slave 1 should have at most 1 computer", 1, slave1.computersCreated);
+        assertEquals("Slave 2 should have at most 1 computer", 1, slave2.computersCreated);
+    }
+
+    static class DestroyAtOnceRetentionStrategy extends RetentionStrategy.NoOpRetentionStrategy {
+
+        private final transient Hudson hudson;
+
+        DestroyAtOnceRetentionStrategy(Hudson hudson) {
+            this.hudson = hudson;
+        }
+
+        public synchronized long check(Computer c) {
+            try {
+                hudson.removeNode(c.getNode());
+                return super.check(c);
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+        }
     }
 }
