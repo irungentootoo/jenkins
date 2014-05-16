@@ -23,8 +23,11 @@
  */
 package hudson.model;
 
+import org.kohsuke.accmod.Restricted;
+import org.kohsuke.accmod.restrictions.NoExternalUse;
 import org.kohsuke.stapler.StaplerRequest;
 import org.kohsuke.stapler.DataBoundConstructor;
+import org.kohsuke.stapler.Stapler;
 import net.sf.json.JSONObject;
 import hudson.Extension;
 
@@ -52,6 +55,18 @@ public class BooleanParameterDefinition extends SimpleParameterDefinition {
         }
     }
 
+    @Restricted(NoExternalUse.class)
+    public boolean getDefaultValueForCurrentRequest() {
+        if (Stapler.getCurrentRequest() != null && Stapler.getCurrentRequest().hasParameter(getName())) {
+            String value = Stapler.getCurrentRequest().getParameter(getName());
+            return Boolean.parseBoolean(value);
+        }
+        return isDefaultValue();
+    }
+
+    /**
+     * This should probably have been called getDefaultValue().
+     */
     public boolean isDefaultValue() {
         return defaultValue;
     }

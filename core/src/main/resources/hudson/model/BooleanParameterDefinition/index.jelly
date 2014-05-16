@@ -29,7 +29,7 @@ THE SOFTWARE.
 	<f:entry title="${it.name}" description="${it.formattedDescription}">
 		<div name="parameter">
 			<input type="hidden" name="name" value="${it.name}" />
-			<f:checkbox name="value" checked="${it.defaultValue}" />
+			<f:checkbox name="value" checked="${it.defaultValueForCurrentRequest}" />
 		</div>
 	</f:entry>
 </j:jelly>

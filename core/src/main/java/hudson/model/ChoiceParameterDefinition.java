@@ -1,7 +1,10 @@
 package hudson.model;
 
 import hudson.util.FormValidation;
+import org.kohsuke.accmod.Restricted;
+import org.kohsuke.accmod.restrictions.NoExternalUse;
 import org.kohsuke.stapler.QueryParameter;
+import org.kohsuke.stapler.Stapler;
 import org.kohsuke.stapler.StaplerRequest;
 import org.kohsuke.stapler.DataBoundConstructor;
 import org.kohsuke.stapler.export.Exported;
@@ -65,9 +68,25 @@ public class ChoiceParameterDefinition extends SimpleParameterDefinition {
         return StringUtils.join(choices, "\n");
     }
 
+    @Restricted(NoExternalUse.class)
+    public String getDefaultValueForCurrentRequest() {
+        if (Stapler.getCurrentRequest() != null && Stapler.getCurrentRequest().hasParameter(getName())) {
+            String value = Stapler.getCurrentRequest().getParameter(getName());
+            if (choices.contains(value)) {
+                return value;
+            }
+        }
+        return getDefaultValue();
+    }
+
+    @Restricted(NoExternalUse.class)
+    public String getDefaultValue() {
+        return defaultValue == null ? choices.get(0) : defaultValue;
+    }
+
     @Override
     public StringParameterValue getDefaultParameterValue() {
-        return new StringParameterValue(getName(), defaultValue == null ? choices.get(0) : defaultValue, getDescription());
+        return new StringParameterValue(getName(), getDefaultValue(), getDescription());
     }
 
     private StringParameterValue checkValue(StringParameterValue value) {

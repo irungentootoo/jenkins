@@ -25,7 +25,10 @@ package hudson.model;
 
 import hudson.Extension;
 import net.sf.json.JSONObject;
+import org.kohsuke.accmod.Restricted;
+import org.kohsuke.accmod.restrictions.NoExternalUse;
 import org.kohsuke.stapler.DataBoundConstructor;
+import org.kohsuke.stapler.Stapler;
 import org.kohsuke.stapler.StaplerRequest;
 
 /**
@@ -53,6 +56,14 @@ public class StringParameterDefinition extends SimpleParameterDefinition {
         } else {
             return this;
         }
+    }
+
+    @Restricted(NoExternalUse.class)
+    public String getDefaultValueForCurrentRequest() {
+        if (Stapler.getCurrentRequest() != null && Stapler.getCurrentRequest().hasParameter(getName())) {
+            return Stapler.getCurrentRequest().getParameter(getName());
+        }
+        return getDefaultValue();
     }
 
     public String getDefaultValue() {
