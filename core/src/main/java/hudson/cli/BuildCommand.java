@@ -37,17 +37,18 @@ import hudson.AbortException;
 import hudson.model.Item;
 import hudson.model.Result;
 import hudson.model.TaskListener;
+import hudson.model.User;
 import hudson.model.queue.QueueTaskFuture;
 import hudson.scm.PollingResult.Change;
 import hudson.util.EditDistance;
 import hudson.util.StreamTaskListener;
+import org.kohsuke.accmod.Restricted;
+import org.kohsuke.accmod.restrictions.DoNotUse;
+import org.kohsuke.accmod.restrictions.NoExternalUse;
 import org.kohsuke.args4j.Argument;
 import org.kohsuke.args4j.Option;
 
-import java.util.Map;
-import java.util.HashMap;
-import java.util.List;
-import java.util.ArrayList;
+import java.util.*;
 import java.util.Map.Entry;
 import java.io.FileNotFoundException;
 import java.io.PrintStream;
@@ -214,22 +215,39 @@ public class BuildCommand extends CLICommand {
     	private String startedBy;
 
     	public CLICause(){
-    		startedBy = "unknown";
+    		startedBy = null;
     	}
 
     	public CLICause(String startedBy){
     		this.startedBy = startedBy;
     	}
 
+        @Restricted(NoExternalUse.class)
+        public String getNiceUserName() {
+            if (startedBy == null) {
+                return "unknown";
+            }
+            User u = User.get(startedBy, false, Collections.emptyMap());
+            if (u == null) {
+                return startedBy;
+            }
+            return u.getDisplayName();
+        }
+
+        @Restricted(DoNotUse.class)
+        public String getStartedBy() {
+            return startedBy;
+        }
+
         @Override
         public String getShortDescription() {
-            return Messages.BuildCommand_CLICause_ShortDescription(startedBy);
+            return Messages.BuildCommand_CLICause_ShortDescription(getNiceUserName());
         }
 
         @Override
         public void print(TaskListener listener) {
             listener.getLogger().println(Messages.BuildCommand_CLICause_ShortDescription(
-                    ModelHyperlinkNote.encodeTo("/user/" + startedBy, startedBy)));
+                    startedBy == null ? "unknown" : ModelHyperlinkNote.encodeTo("/user/" + startedBy, getNiceUserName())));
         }
 
         @Override
