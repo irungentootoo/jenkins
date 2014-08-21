@@ -1999,6 +1999,11 @@ public class Jenkins extends AbstractCIBase implements DirectlyModifiableTopLeve
         return buildsDir;
     }
 
+    @Restricted(NoExternalUse.class)
+    public void setRawBuildsDir(String buildsDir) {
+        this.buildsDir = buildsDir;
+    }
+
     public FilePath getRootPath() {
         return new FilePath(getRootDir());
     }
