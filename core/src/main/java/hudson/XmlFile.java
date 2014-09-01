@@ -172,6 +172,9 @@ public final class XmlFile {
 
     public void write( Object o ) throws IOException {
         mkdirs();
+        if (!file.getParentFile().exists()) {
+            throw new IOException("Failed to create " + file.getParent());
+        }
         AtomicFileWriter w = new AtomicFileWriter(file);
         try {
             w.write("<?xml version='1.0' encoding='UTF-8'?>\n");
