@@ -33,6 +33,7 @@ import org.kohsuke.stapler.export.Exported;
 import org.kohsuke.stapler.export.ExportedBean;
 
 import java.io.*;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
@@ -350,6 +351,11 @@ public class HealthReport implements Serializable, Comparable<HealthReport> {
             if (hr.localizibleDescription == null) {
                 hr.localizibleDescription = new NonLocalizable(hr.description == null ? "" : hr.description);
                 OldDataMonitor.report(context, "1.256");
+            }
+
+            List<String> defaultIcons = Arrays.asList(HEALTH_0_TO_20_IMG, HEALTH_21_TO_40_IMG, HEALTH_41_TO_60_IMG, HEALTH_61_TO_80_IMG, HEALTH_OVER_80_IMG);
+            if (defaultIcons.contains(hr.iconUrl)) {
+                hr.iconClassName = "icon-" + hr.iconUrl.substring(0, hr.iconUrl.length() - 4);
             }
         }
     }
