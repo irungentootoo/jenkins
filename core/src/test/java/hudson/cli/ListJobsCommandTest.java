@@ -92,8 +92,8 @@ public class ListJobsCommandTest {
 
         final Folder folder = mock(Folder.class);
         final Folder nestedFolder = mock(Folder.class);
-        when(folder.getDisplayName()).thenReturn("Folder");
-        when(nestedFolder.getDisplayName()).thenReturn("NestedFolder");
+        when(folder.getName()).thenReturn("Folder");
+        when(nestedFolder.getName()).thenReturn("NestedFolder");
 
         final TopLevelItem job = job("job");
         final TopLevelItem nestedJob = job("nestedJob");
@@ -182,7 +182,7 @@ public class ListJobsCommandTest {
 
         final TopLevelItem item = mock(TopLevelItem.class);
 
-        when(item.getDisplayName()).thenReturn(name);
+        when(item.getName()).thenReturn(name);
 
         return item;
     }

@@ -23,6 +23,7 @@
  */
 package hudson.model.listeners;
 
+import jenkins.model.Jenkins;
 import hudson.ExtensionPoint;
 import hudson.ExtensionList;
 import hudson.Extension;
