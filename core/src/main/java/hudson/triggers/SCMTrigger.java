@@ -126,9 +126,6 @@ public class SCMTrigger extends Trigger<SCMedItem> {
      * @since 1.375
      */
     public void run(Action[] additionalActions) {
-        if(Jenkins.getInstance().isQuietingDown())
-            return; // noop
-
         DescriptorImpl d = getDescriptor();
 
         LOGGER.fine("Scheduling a polling for "+job);
