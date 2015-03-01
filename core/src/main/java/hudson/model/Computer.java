@@ -948,12 +948,12 @@ public /*transient*/ abstract class Computer extends Actionable implements Acces
     public EnvVars getEnvironment() throws IOException, InterruptedException {
         EnvVars cachedEnvironment = this.cachedEnvironment;
         if (cachedEnvironment != null) {
-            return cachedEnvironment;
+            return new EnvVars(cachedEnvironment);
         }
 
         cachedEnvironment = EnvVars.getRemote(getChannel());
         this.cachedEnvironment = cachedEnvironment;
-        return cachedEnvironment;
+        return new EnvVars(cachedEnvironment);
     }
 
     /**
