@@ -23,6 +23,7 @@
  */
 package hudson.PluginManager;
 l=namespace(lib.LayoutTagLib)
+st=namespace("jelly:stapler")
 
 l.header()
 l.side_panel {
@@ -32,5 +33,6 @@ l.side_panel {
         if (!app.updateCenter.jobs.isEmpty()) {
             l.task(icon:"icon-plugin icon-md", href:"${rootURL}/updateCenter/", title:_("Update Center"))
         }
+        st.include(it:app.pluginManager, page:"actions")
     }
 }

@@ -1,0 +1,9 @@
+<?jelly escape-by-default='true'?>
+<j:jelly xmlns:j="jelly:core" xmlns:st="jelly:stapler" xmlns:d="jelly:define" xmlns:l="/lib/layout" xmlns:t="/lib/hudson" xmlns:s="/lib/form">
+    <l:layout title="${%Plugin Store}" permission="${app.ADMINISTER}" norefresh="true">
+        <st:include page="sidepanel.jelly" it="${app.pluginManager}" />
+        <l:main-panel>
+            <h1>Plugin Store</h1>
+        </l:main-panel>
+    </l:layout>
+</j:jelly>

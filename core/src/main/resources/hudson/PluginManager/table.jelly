@@ -46,17 +46,16 @@ THE SOFTWARE.
         ]]>
       </script>
     </l:header>
-    <st:include page="sidepanel.jelly"/>
+    <st:include page="sidepanel.jelly" it="${app.pluginManager}" />
     <l:main-panel>
       <st:adjunct includes="hudson.PluginManager._table"/>
-      <form method="post" action="install">
+      <form method="post" action="${rootURL}/pluginManager/install">
         <div id="filter-container">
           ${%Filter}:
           <input type="text" id="filter-box"/>
         </div>
 
         <j:set var="isUpdates" value="${attrs.page=='updates'}" />
-        <local:tabBar page="${attrs.page}" xmlns:local="/hudson/PluginManager" />
         <div class="pane-frame">
           <table id="plugins" class="sortable pane bigtable stripped-odd">
             <tr>
@@ -147,7 +146,7 @@ THE SOFTWARE.
                 <span style="margin-left:2em;"></span>
               </j:if>
               <f:submit value="${%Download now and install after restart}" />
-              <st:include page="check.jelly"/>
+              <st:include page="check.jelly" it="${app.pluginManager}" />
             </div>
           </div>
         </j:if>

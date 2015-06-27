@@ -1,0 +1,23 @@
+<?jelly escape-by-default='true'?>
+<j:jelly xmlns:j="jelly:core" xmlns:st="jelly:stapler" xmlns:d="jelly:define" xmlns:l="/lib/layout" xmlns:t="/lib/hudson" xmlns:s="/lib/form">
+    <l:layout title="${%Update Center}" permission="${app.ADMINISTER}" norefresh="true">
+        <st:include page="sidepanel.jelly" it="${app.pluginManager}" />
+        <l:main-panel>
+            <h1>Plugin: ${it.displayName}</h1>
+            <ul>
+                <li>Display name when installed: ${it.displayName}</li>
+                <li>Display name in update center: ${it.info.title}</li>
+                <li>Short name: ${it.shortName}</li>
+                <li>Documentation: <a href="${it.url}">${it.url}</a></li>
+                <li>Required core version: ${it.info.requiredCore}</li>
+                <li><a href="thirdPartyLicenses">Third Party Licenses</a></li>
+            </ul>
+            <h3>Mandatory plugin dependencies</h3>
+            <ul>
+                <j:forEach var="dependency" items="${it.dependencies}">
+                    <li>${dependency.shortName} ${dependency.version}</li>
+                </j:forEach>
+            </ul>
+        </l:main-panel>
+    </l:layout>
+</j:jelly>

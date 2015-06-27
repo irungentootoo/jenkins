@@ -30,10 +30,8 @@ THE SOFTWARE.
 <l:layout title="${%Update Center}" permission="${app.ADMINISTER}" norefresh="true">
   <st:include page="sidepanel.jelly"/>
   <l:main-panel>
-    <local:tabBar page="advanced" xmlns:local="/hudson/PluginManager" />
-    <div class="pane-frame">
-      <table id="pluginsAdv" class="pane" style="margin-top:0; border-top:none">
-        <tr style="border-top:none; white-space: normal">
+      <table id="pluginsAdv" class="pane" style="margin-top:0; border:none">
+        <tr style="border:none; white-space: normal">
           <td>
             <l:hasPermission permission="${app.pluginManager.CONFIGURE_UPDATECENTER}">
               <h1>${%HTTP Proxy Configuration}</h1>
@@ -96,7 +94,6 @@ THE SOFTWARE.
           </td>
         </tr>
       </table>
-    </div>
     <div align="right" style="margin-top:1em">
       <st:include page="check.jelly"/>
     </div>

@@ -27,15 +27,7 @@ import hudson.PluginWrapper.Dependency;
 import hudson.init.InitMilestone;
 import hudson.init.InitStrategy;
 import hudson.init.InitializerFinder;
-import hudson.model.AbstractItem;
-import hudson.model.AbstractModelObject;
-import hudson.model.AdministrativeMonitor;
-import hudson.model.Api;
-import hudson.model.Descriptor;
-import hudson.model.Failure;
-import hudson.model.ItemGroupMixIn;
-import hudson.model.UpdateCenter;
-import hudson.model.UpdateSite;
+import hudson.model.*;
 import hudson.security.Permission;
 import hudson.security.PermissionScope;
 import hudson.util.CyclicGraphDetector;
@@ -45,11 +37,9 @@ import hudson.util.PersistedList;
 import hudson.util.Service;
 import hudson.util.VersionNumber;
 import hudson.util.XStream2;
-import jenkins.ClassLoaderReflectionToolkit;
-import jenkins.InitReactorRunner;
-import jenkins.RestartRequiredException;
-import jenkins.YesNoMaybe;
+import jenkins.*;
 import jenkins.model.Jenkins;
+import jenkins.model.TransientActionFactory;
 import jenkins.util.io.OnMaster;
 import jenkins.util.xml.RestrictiveEntityResolver;
 
@@ -67,17 +57,13 @@ import org.jvnet.hudson.reactor.Reactor;
 import org.jvnet.hudson.reactor.ReactorException;
 import org.jvnet.hudson.reactor.TaskBuilder;
 import org.jvnet.hudson.reactor.TaskGraphBuilder;
-import org.kohsuke.stapler.HttpRedirect;
-import org.kohsuke.stapler.HttpResponse;
-import org.kohsuke.stapler.HttpResponses;
-import org.kohsuke.stapler.QueryParameter;
-import org.kohsuke.stapler.StaplerRequest;
-import org.kohsuke.stapler.StaplerResponse;
+import org.kohsuke.stapler.*;
 import org.kohsuke.stapler.export.Exported;
 import org.kohsuke.stapler.export.ExportedBean;
 import org.kohsuke.stapler.interceptor.RequirePOST;
 
 import javax.annotation.CheckForNull;
+import javax.annotation.Nonnull;
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.xml.parsers.ParserConfigurationException;
@@ -116,7 +102,7 @@ import org.xml.sax.SAXException;
 import org.xml.sax.helpers.DefaultHandler;
 
 import static hudson.init.InitMilestone.*;
-import hudson.model.DownloadService;
+
 import hudson.util.FormValidation;
 import static java.util.logging.Level.WARNING;
 import org.kohsuke.accmod.Restricted;
@@ -128,7 +114,113 @@ import org.kohsuke.accmod.restrictions.NoExternalUse;
  * @author Kohsuke Kawaguchi
  */
 @ExportedBean
-public abstract class PluginManager extends AbstractModelObject implements OnMaster {
+public abstract class PluginManager extends Actionable implements OnMaster, StaplerFallback {
+
+
+    @Extension
+    public static class AvailableAction implements Action {
+
+        @Override
+        public String getIconFileName() {
+            return "package.png";
+        }
+
+        @Override
+        public String getDisplayName() {
+            return "Available Plugins";
+        }
+
+        @Override
+        public String getUrlName() {
+            return "available";
+        }
+    }
+
+    @Extension
+    public static class InstalledAction implements Action {
+        @Override
+        public String getIconFileName() {
+            return "package.png";
+        }
+
+        @Override
+        public String getDisplayName() {
+            return "Installed Plugins";
+        }
+
+        @Override
+        public String getUrlName() {
+            return "installed";
+        }
+    }
+
+    @Extension
+    public static class UpdatesAction implements Action {
+
+        @Override
+        public String getIconFileName() {
+            return "package.png";
+        }
+
+        @Override
+        public String getDisplayName() {
+            return "Updates";
+        }
+
+        @Override
+        public String getUrlName() {
+            return "";
+        }
+    }
+
+
+
+    @Extension
+    public static class DefaultPluginManagerActionsFactory extends TransientActionFactory {
+
+        @Override
+        public Class type() {
+            return PluginManager.class;
+        }
+
+        @Nonnull
+        @Override
+        public Collection<? extends Action> createFor(@Nonnull Object target) {
+            Collection<Action> actions = new ArrayList<Action>();
+            actions.add(new UpdatesAction());
+            actions.add(new AvailableAction());
+            actions.add(new InstalledAction());
+            actions.add(new Action() {
+
+                @Override
+                public String getIconFileName() {
+                    return "gear.png";
+                }
+
+                @Override
+                public String getDisplayName() {
+                    return "Advanced";
+                }
+
+                @Override
+                public String getUrlName() {
+                    return "advanced";
+                }
+            });
+            return actions;
+        }
+    }
+
+    @Override
+    public Object getStaplerFallback() {
+        return getAllActions().get(0);
+    }
+
+    public String getUrl() {
+        return "pluginManager";
+    }
+
+
     /**
      * All discovered plugins.
      */
