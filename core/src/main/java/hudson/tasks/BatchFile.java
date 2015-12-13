@@ -56,7 +56,9 @@ public class BatchFile extends CommandInterpreter {
     }
 
     private Object readResolve() throws ObjectStreamException {
-        return new BatchFile(command);
+        BatchFile bf = new BatchFile(command);
+        bf.setEnabled(isEnabled());
+        return bf;
     }
 
     @Extension

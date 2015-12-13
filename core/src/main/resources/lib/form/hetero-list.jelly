@@ -44,8 +44,17 @@ THE SOFTWARE.
     <st:attribute name="addCaption">
       caption of the 'add' button.
     </st:attribute>
+    <st:attribute name="supportsDisabling">
+      'yes' when disabling of elements is supported.
+    </st:attribute>
     <st:attribute name="deleteCaption">
       caption of the 'delete' button.
+    </st:attribute>
+    <st:attribute name="disableCaption">
+      caption of the 'disable' button.
+    </st:attribute>
+    <st:attribute name="enableCaption">
+      caption of the 'enable' button.
     </st:attribute>
     <st:attribute name="targetType">
       the type for which descriptors will be configured. Defaults to ${it.class} (optional)
@@ -94,6 +103,9 @@ THE SOFTWARE.
         <f:class-entry descriptor="${descriptor}" />
         <f:block>
           <div align="right">
+            <j:if test="${attrs.supportsDisabling == 'yes'}">
+              <f:repeatableDisableButton enabled="${attrs.enabled}" disableCaption="${attrs.disableCaption}" enableCaption="${attrs.enableCaption}" />
+            </j:if>
             <f:repeatableDeleteButton value="${attrs.deleteCaption}" />
           </div>
         </f:block>
@@ -109,8 +121,8 @@ THE SOFTWARE.
     <j:forEach var="i" items="${attrs.items}">
       <j:set var="descriptor" value="${i.descriptor}" />
       <j:set var="instance" value="${i}" />
-      <div name="${attrs.name}" class="repeated-chunk" descriptorId="${descriptor.id}">
-        <local:body deleteCaption="${attrs.deleteCaption}">
+      <div name="${attrs.name}" class="repeated-chunk ${attrs.supportsDisabling != 'yes' or i.enabled ? '' : 'repeated-disabled'}" descriptorId="${descriptor.id}">
+        <local:body deleteCaption="${attrs.deleteCaption}" enabled="${i.enabled ? true : null}" supportsDisabling="${attrs.supportsDisabling}" disableCaption="${attrs.disableCaption}" enableCaption="${attrs.enableCaption}" >
           <st:include from="${descriptor}" page="${descriptor.configPage}" optional="true" />
         </local:body>
       </div>
@@ -125,7 +137,7 @@ THE SOFTWARE.
       <j:forEach var="descriptor" items="${descriptors}" varStatus="loop">
         <div name="${attrs.name}" title="${descriptor.displayName}" tooltip="${descriptor.tooltip}" descriptorId="${descriptor.id}">
           <j:set var="capture" value="${attrs.capture?:''}" />
-          <local:body deleteCaption="${attrs.deleteCaption}">
+          <local:body deleteCaption="${attrs.deleteCaption}" enabled="true" supportsDisabling="${attrs.supportsDisabling}" disableCaption="${attrs.disableCaption}" enableCaption="${attrs.enableCaption}" >
             <l:renderOnDemand tag="tr" clazz="config-page" capture="descriptor,it,instance,${capture}">
               <l:ajax>
                 <st:include from="${descriptor}" page="${descriptor.configPage}" optional="true" />

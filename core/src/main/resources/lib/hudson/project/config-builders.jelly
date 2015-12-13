@@ -32,6 +32,9 @@ THE SOFTWARE.
       <f:hetero-list name="builder" hasHeader="true"
                      descriptors="${h.getBuilderDescriptors(it)}"
                      items="${it.builders}"
+                     supportsDisabling="${it.descriptor.disablingBuildStepsSupported ? 'yes' : null}"
+                     disableCaption="${%Disable build step}"
+                     enableCaption="${%Enable build step}"
                      addCaption="${%Add build step}"/>
     </f:block>
   </f:section>

@@ -1395,6 +1395,14 @@ TABLE.fingerprint-in-build TD {
     border-color: #CCC;
 }
 
+.repeated-chunk.repeated-disabled {
+    background-color: #eee;
+}
+
+.repeated-chunk .repeated-disable-checkbox {
+  display: none;
+}
+
 .repeated-chunk .show-if-last      { visibility: hidden; }
 .repeated-chunk.last .show-if-last { visibility: visible; }
 

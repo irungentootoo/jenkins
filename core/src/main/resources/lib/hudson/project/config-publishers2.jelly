@@ -35,6 +35,9 @@ THE SOFTWARE.
                      oneEach="true"
                      menuAlign="bl-tl"
                      honorOrder="true"
+                     supportsDisabling="${it.descriptor.disablingBuildStepsSupported ? 'yes' : null}"
+                     disableCaption="${%Disable post-build action}"
+                     enableCaption="${%Enable post-build action}"
                      addCaption="${%Add post-build action}"/>
     </f:block>
   </f:section>

@@ -26,11 +26,16 @@ package hudson.tasks;
 import hudson.ExtensionPoint;
 import hudson.Extension;
 import hudson.DescriptorExtensionList;
+import hudson.model.AbstractProject;
 import hudson.model.Build;
 import hudson.model.BuildListener;
 import hudson.model.Describable;
 import hudson.model.Descriptor;
+import hudson.model.DisableableBuildStep;
 import jenkins.model.Jenkins;
+import org.kohsuke.stapler.DataBoundSetter;
+
+import java.util.Arrays;
 
 
 /**
@@ -42,8 +47,20 @@ import jenkins.model.Jenkins;
  *
  * @author Kohsuke Kawaguchi
  */
-public abstract class Builder extends BuildStepCompatibilityLayer implements Describable<Builder>, ExtensionPoint {
-    
+public abstract class Builder extends BuildStepCompatibilityLayer implements Describable<Builder>, ExtensionPoint, DisableableBuildStep {
+
+    /**
+     * Stores the enabled/disabled state of this {@link DisableableBuildStep}.
+     *
+     * As this is a very late addition to this type, it's safer to use a {@link Boolean} and interpret a null value in
+     * the getter, than the usual solution of implementing <code>readResolve</code> which may be overridden in subtypes.
+     *
+     * Do not set a default value here, as that may only pollute build steps' XML representation in projects not
+     * supporting disabled build steps.
+     *
+     * @since TODO
+     */
+    private Boolean enabled;
 
 //
 // these two methods need to remain to keep binary compatibility with plugins built with Hudson < 1.150
@@ -73,5 +90,33 @@ public abstract class Builder extends BuildStepCompatibilityLayer implements Des
     // for backward compatibility, the signature is not BuildStepDescriptor
     public static DescriptorExtensionList<Builder,Descriptor<Builder>> all() {
         return Jenkins.getInstance().<Builder,Descriptor<Builder>>getDescriptorList(Builder.class);
+    }
+
+
+    /**
+     * @since TODO
+     * @return
+     */
+    @Override
+    public boolean isEnabled() {
+        return enabled == null || enabled;
+    }
+
+    /**
+     * Sets the enabled/disabled state of this build step.
+     *
+     * <strong>Do not use this programmatically in plugins to implement dynamic build step skipping.</strong>
+     * Such use is unsupported. Only use this implicitly by projects supporting user-disabling of build steps
+     * ({@link AbstractProject.AbstractProjectDescriptor#isDisablingBuildStepsSupported()} or to retain the enabled/disabled
+     * status of a build step e.g. in <code>readResolve</code>.
+     *
+     * @since TODO
+     * @param enabled
+     */
+    @DataBoundSetter
+    @Override
+    public void setEnabled(boolean enabled) {
+        // XXX if this gets abused by plugins, fail to work when set outside readResolve/XStream/Stapler.
+        this.enabled = enabled;
     }
 }

@@ -718,6 +718,10 @@ public abstract class AbstractBuild<P extends AbstractProject<P,R>,R extends Abs
         protected final boolean performAllBuildSteps(BuildListener listener, Iterable<? extends BuildStep> buildSteps, boolean phase) throws InterruptedException, IOException {
             boolean r = true;
             for (BuildStep bs : buildSteps) {
+                if ((bs instanceof DisableableBuildStep) && !((DisableableBuildStep) bs).isEnabled()) {
+                    LOGGER.log(Level.FINE, "{0} : Skipping disabled {1}", new Object[] {AbstractBuild.this, bs});
+                    continue;
+                }
                 if ((bs instanceof Publisher && ((Publisher)bs).needsToRunAfterFinalized()) ^ phase)
                     try {
                         if (!perform(bs,listener)) {
@@ -833,11 +837,16 @@ public abstract class AbstractBuild<P extends AbstractProject<P,R>,R extends Abs
         }
 
         protected final boolean preBuild(BuildListener listener,Iterable<? extends BuildStep> steps) {
-            for (BuildStep bs : steps)
+            for (BuildStep bs : steps) {
+                if ((bs instanceof DisableableBuildStep) && !((DisableableBuildStep) bs).isEnabled()) {
+                    LOGGER.log(Level.FINE, "{0} : Skipping disabled {1}", new Object[]{AbstractBuild.this, bs});
+                    continue;
+                }
                 if (!bs.prebuild(AbstractBuild.this,listener)) {
                     LOGGER.log(Level.FINE, "{0} : {1} failed", new Object[] {AbstractBuild.this, bs});
                     return false;
                 }
+            }
             return true;
         }
     }

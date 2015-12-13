@@ -58,8 +58,10 @@ var repeatableSupport = {
             // noop
         } else
         if(children.length==1) {
+            // TODO disabled support
             children[0].className = "repeated-chunk first last only";
         } else {
+            // TODO disabled support
             children[0].className = "repeated-chunk first";
             for(var i=1; i<children.length-1; i++)
                 children[i].className = "repeated-chunk middle";
@@ -98,6 +100,21 @@ var repeatableSupport = {
                 updateOptionalBlock(input, false);
             }
         }
+    },
+
+    onToggleDisable : function(but) {
+        var n = findAncestorClass(but,"repeated-chunk");
+        var bool = n.hasClassName("repeated-disabled");
+
+        if (bool) {
+            n.removeClassName("repeated-disabled");
+        } else {
+            n.addClassName("repeated-disabled");
+        }
+        var cbs = n.getElementsByClassName("repeated-disable-checkbox");
+        var cb = cbs[0];
+        cb.checked = bool;
+        but.innerHTML = findAncestorClass(but, "yui-button").getAttribute(bool ? "data-disable-value" : "data-enable-value");
     }
 };
 
@@ -128,6 +145,22 @@ Behaviour.specify("INPUT.repeatable-delete", 'repeatable', 0, function(e) {
             repeatableSupport.onDelete(e.target);
         });
         var be = $(b.get("element"));
+        be.on("mouseover",function() {
+            $(this).up(".repeated-chunk").addClassName("hover");
+        });
+        be.on("mouseout",function() {
+            $(this).up(".repeated-chunk").removeClassName("hover");
+        });
+
+        e = be = null; // avoid memory leak
+    });
+
+Behaviour.specify("INPUT.repeatable-disable", 'repeatable', 0, function(e) {
+        var b = makeButton(e,function(e) {
+            repeatableSupport.onToggleDisable(e.target);
+        });
+        var be = $(b.get("element"));
+
         be.on("mouseover",function() {
             $(this).up(".repeated-chunk").addClassName("hover");
         });

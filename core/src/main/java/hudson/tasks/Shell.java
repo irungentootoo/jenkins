@@ -99,7 +99,9 @@ public class Shell extends CommandInterpreter {
     }
 
     private Object readResolve() throws ObjectStreamException {
-        return new Shell(command);
+        Shell sh = new Shell(command);
+        sh.setEnabled(isEnabled());
+        return sh;
     }
 
     @Extension

@@ -30,9 +30,11 @@ import hudson.model.Action;
 import hudson.model.Build;
 import hudson.model.BuildListener;
 import hudson.model.Describable;
+import hudson.model.DisableableBuildStep;
 import hudson.model.Project;
 import hudson.model.Descriptor;
 import jenkins.model.Jenkins;
+import org.kohsuke.stapler.DataBoundSetter;
 
 import java.util.List;
 import java.util.ArrayList;
@@ -60,7 +62,21 @@ import java.util.Comparator;
  *
  * @author Kohsuke Kawaguchi
  */
-public abstract class Publisher extends BuildStepCompatibilityLayer implements Describable<Publisher> {
+public abstract class Publisher extends BuildStepCompatibilityLayer implements Describable<Publisher>, DisableableBuildStep {
+
+    /**
+     * Stores the enabled/disabled state of this {@link DisableableBuildStep}.
+     *
+     * As this is a very late addition to this type, it's safer to use a {@link Boolean} and interpret a null value in
+     * the getter, than the usual solution of implementing <code>readResolve</code> which may be overridden in subtypes.
+     *
+     * Do not set a default value here, as that may only pollute build steps' XML representation in projects not
+     * supporting disabled build steps.
+     *
+     * @since TODO
+     */
+    private Boolean enabled;
+
     /**
      * @deprecated
      *      Don't extend from {@link Publisher} directly. Instead, choose {@link Recorder} or {@link Notifier}
@@ -169,5 +185,24 @@ public abstract class Publisher extends BuildStepCompatibilityLayer implements D
     // for backward compatibility, the signature is not BuildStepDescriptor
     public static DescriptorExtensionList<Publisher,Descriptor<Publisher>> all() {
         return Jenkins.getInstance().<Publisher,Descriptor<Publisher>>getDescriptorList(Publisher.class);
+    }
+
+    /**
+     * @since TODO
+     * @return
+     */
+    @Override
+    public boolean isEnabled() {
+        return enabled == null || enabled;
+    }
+
+    /**
+     * @since TODO
+     * @param enabled
+     */
+    @Override
+    @DataBoundSetter
+    public void setEnabled(boolean enabled) {
+        this.enabled = enabled;
     }
 }

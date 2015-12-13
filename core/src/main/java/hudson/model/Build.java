@@ -202,6 +202,9 @@ public abstract class Build <P extends Project<P,B>,B extends Build<P,B>>
 
         private boolean build(@Nonnull BuildListener listener, @Nonnull Collection<Builder> steps) throws IOException, InterruptedException {
             for( BuildStep bs : steps ) {
+                if ((bs instanceof DisableableBuildStep) && !((DisableableBuildStep) bs).isEnabled()) {
+                    continue;
+                }
                 if(!perform(bs,listener)) {
                     LOGGER.log(Level.FINE, "{0} : {1} failed", new Object[] {Build.this, bs});
                     return false;

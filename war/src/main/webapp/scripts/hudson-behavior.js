@@ -506,12 +506,19 @@ function makeButton(e,onclick) {
     var h = e.onclick;
     var clsName = e.className;
     var n = e.name;
+    var datas = e.attributes;
     var btn = new YAHOO.widget.Button(e,{});
     if(onclick!=null)
         btn.addListener("click",onclick);
     if(h!=null)
         btn.addListener("click",h);
     var be = btn.get("element");
+    for (var i=0; i < datas.length; i++) {
+        var data = datas.item(i);
+        if (data.name.indexOf("data-") == 0) {
+            be.setAttribute(data.name, data.value);
+        }
+    }
     Element.addClassName(be,clsName);
     if(n) // copy the name
         be.setAttribute("name",n);

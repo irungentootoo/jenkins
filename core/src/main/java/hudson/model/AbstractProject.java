@@ -2063,6 +2063,15 @@ public abstract class AbstractProject<P extends AbstractProject<P,R>,R extends A
           return doCheckLabel(project, value);
         }
 
+        /**
+         * Indicates whether this type supports disabling build steps. Only if this returns true is the user
+         * offered the option to disable build steps in the UI.
+         * @return
+         */
+        public boolean isDisablingBuildStepsSupported() {
+            return false;
+        }
+
         public FormValidation doCheckLabel(@AncestorInPath AbstractProject<?,?> project,
                                            @QueryParameter String value) {
             return validateLabelExpression(value, project);

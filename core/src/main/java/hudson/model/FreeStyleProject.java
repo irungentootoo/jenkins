@@ -72,5 +72,10 @@ public class FreeStyleProject extends Project<FreeStyleProject,FreeStyleBuild> i
         public FreeStyleProject newInstance(ItemGroup parent, String name) {
             return new FreeStyleProject(parent,name);
         }
+
+        @Override
+        public boolean isDisablingBuildStepsSupported() {
+            return true;
+        }
     }
 }
