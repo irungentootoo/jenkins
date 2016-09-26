@@ -138,7 +138,7 @@ public class ArtifactArchiver extends Recorder implements SimpleBuildStep {
     }
 
     // Backwards compatibility for older builds
-    public Object readResolve() {
+    private Object readResolve() {
         if (allowEmptyArchive == null) {
             this.allowEmptyArchive = SystemProperties.getBoolean(ArtifactArchiver.class.getName()+".warnOnEmpty");
         }

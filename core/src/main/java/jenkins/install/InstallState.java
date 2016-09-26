@@ -170,7 +170,7 @@ public class InstallState implements ExtensionPoint {
     public void initializeState() {
     }
     
-    public Object readResolve() {
+    private Object readResolve() {
         // If we get invalid state from the configuration, fallback to unknown
         if (StringUtils.isBlank(name)) {
             LOGGER.log(Level.WARNING, "Read install state with blank name: ''{0}''. It will be ignored", name);

@@ -203,7 +203,7 @@ public final class ProxyConfiguration extends AbstractDescribableImpl<ProxyConfi
         SaveableListener.fireOnChange(this, config);
     }
 
-    public Object readResolve() {
+    private Object readResolve() {
         if (secretPassword == null)
             // backward compatibility : get crambled password and store it encrypted
             secretPassword = Secret.fromString(Scrambler.descramble(password));
