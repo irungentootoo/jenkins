@@ -23,6 +23,7 @@
  */
 package hudson.diagnosis;
 
+import hudson.RestrictedSince;
 import hudson.util.TimeUnit2;
 import hudson.util.ColorPalette;
 import hudson.Extension;
@@ -40,6 +41,8 @@ import java.util.ArrayList;
 import java.io.IOException;
 
 import org.jenkinsci.Symbol;
+import org.kohsuke.accmod.Restricted;
+import org.kohsuke.accmod.restrictions.NoExternalUse;
 import org.kohsuke.stapler.QueryParameter;
 
 /**
@@ -101,6 +104,7 @@ public final class MemoryUsageMonitor extends PeriodicWork {
         /**
          * Generates the memory usage statistics graph.
          */
+        @RestrictedSince("since TODO 2.4x") @Restricted(NoExternalUse.class) // For Stapler only
         public TrendChart doGraph(@QueryParameter String type) throws IOException {
             return MultiStageTimeSeries.createTrendChart(TimeScale.parse(type),used,max);
         }

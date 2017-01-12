@@ -24,6 +24,7 @@
 package hudson.slaves;
 
 import hudson.Extension;
+import hudson.RestrictedSince;
 import hudson.model.ComputerSet;
 import hudson.model.Descriptor;
 import hudson.model.Slave;
@@ -39,6 +40,8 @@ import java.io.IOException;
 import java.util.List;
 import java.util.ArrayList;
 
+import org.kohsuke.accmod.Restricted;
+import org.kohsuke.accmod.restrictions.NoExternalUse;
 import org.kohsuke.stapler.QueryParameter;
 import org.kohsuke.stapler.StaplerRequest;
 import org.kohsuke.stapler.StaplerResponse;
@@ -96,6 +99,7 @@ public abstract class NodeDescriptor extends Descriptor<Node> {
         return getViewPage(clazz, "configure-entries.jelly");
     }
 
+    @RestrictedSince("since TODO 2.4x") @Restricted(NoExternalUse.class) // For Stapler only
     public FormValidation doCheckName(@QueryParameter String value ) {
         String name = Util.fixEmptyAndTrim(value);
         if(name==null)

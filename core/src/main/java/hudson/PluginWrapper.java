@@ -35,6 +35,8 @@ import hudson.model.UpdateCenter;
 import hudson.model.UpdateSite;
 import hudson.util.VersionNumber;
 import org.jvnet.localizer.ResourceBundleHolder;
+import org.kohsuke.accmod.Restricted;
+import org.kohsuke.accmod.restrictions.NoExternalUse;
 import org.kohsuke.stapler.HttpResponse;
 import org.kohsuke.stapler.HttpResponses;
 import org.kohsuke.stapler.StaplerRequest;
@@ -761,6 +763,7 @@ public class PluginWrapper implements Comparable<PluginWrapper>, ModelObject {
         /**
          * Depending on whether the user said "dismiss" or "correct", send him to the right place.
          */
+        @RestrictedSince("since TODO 2.4x") @Restricted(NoExternalUse.class) // For Stapler only
         public void doAct(StaplerRequest req, StaplerResponse rsp) throws IOException {
             if(req.hasParameter("correct")) {
                 rsp.sendRedirect(req.getContextPath()+"/pluginManager");
@@ -779,6 +782,7 @@ public class PluginWrapper implements Comparable<PluginWrapper>, ModelObject {
 //
 //
     @RequirePOST
+    @RestrictedSince("since TODO 2.4x") @Restricted(NoExternalUse.class) // For Stapler only
     public HttpResponse doMakeEnabled() throws IOException {
         Jenkins.getInstance().checkPermission(Jenkins.ADMINISTER);
         enable();
@@ -786,6 +790,7 @@ public class PluginWrapper implements Comparable<PluginWrapper>, ModelObject {
     }
 
     @RequirePOST
+    @RestrictedSince("since TODO 2.4x") @Restricted(NoExternalUse.class) // For Stapler only
     public HttpResponse doMakeDisabled() throws IOException {
         Jenkins.getInstance().checkPermission(Jenkins.ADMINISTER);
         disable();
@@ -794,6 +799,7 @@ public class PluginWrapper implements Comparable<PluginWrapper>, ModelObject {
 
     @RequirePOST
     @Deprecated
+    @RestrictedSince("since TODO 2.4x") @Restricted(NoExternalUse.class) // For Stapler only
     public HttpResponse doPin() throws IOException {
         Jenkins.getInstance().checkPermission(Jenkins.ADMINISTER);
         // See https://groups.google.com/d/msg/jenkinsci-dev/kRobm-cxFw8/6V66uhibAwAJ
@@ -803,6 +809,7 @@ public class PluginWrapper implements Comparable<PluginWrapper>, ModelObject {
 
     @RequirePOST
     @Deprecated
+    @RestrictedSince("since TODO 2.4x") @Restricted(NoExternalUse.class) // For Stapler only
     public HttpResponse doUnpin() throws IOException {
         Jenkins.getInstance().checkPermission(Jenkins.ADMINISTER);
         // See https://groups.google.com/d/msg/jenkinsci-dev/kRobm-cxFw8/6V66uhibAwAJ
@@ -811,6 +818,7 @@ public class PluginWrapper implements Comparable<PluginWrapper>, ModelObject {
     }
 
     @RequirePOST
+    @RestrictedSince("since TODO 2.4x") @Restricted(NoExternalUse.class) // For Stapler only
     public HttpResponse doDoUninstall() throws IOException {
         Jenkins jenkins = Jenkins.getActiveInstance();
         

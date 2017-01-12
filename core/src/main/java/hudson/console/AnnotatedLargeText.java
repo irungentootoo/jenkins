@@ -26,11 +26,14 @@
 package hudson.console;
 
 import com.trilead.ssh2.crypto.Base64;
+import hudson.RestrictedSince;
 import jenkins.model.Jenkins;
 import hudson.remoting.ObjectInputStreamEx;
 import hudson.util.TimeUnit2;
 import jenkins.security.CryptoConfidentialKey;
 import org.apache.commons.io.output.ByteArrayOutputStream;
+import org.kohsuke.accmod.Restricted;
+import org.kohsuke.accmod.restrictions.NoExternalUse;
 import org.kohsuke.stapler.Stapler;
 import org.kohsuke.stapler.StaplerRequest;
 import org.kohsuke.stapler.StaplerResponse;
@@ -86,6 +89,7 @@ public class AnnotatedLargeText<T> extends LargeText {
         this.context = context;
     }
 
+    @RestrictedSince("since TODO 2.4x") @Restricted(NoExternalUse.class) // For Stapler only
     public void doProgressiveHtml(StaplerRequest req, StaplerResponse rsp) throws IOException {
         req.setAttribute("html",true);
         doProgressText(req,rsp);
@@ -94,6 +98,7 @@ public class AnnotatedLargeText<T> extends LargeText {
     /**
      * Aliasing what I think was a wrong name in {@link LargeText}
      */
+    @RestrictedSince("since TODO 2.4x") @Restricted(NoExternalUse.class) // For Stapler only
     public void doProgressiveText(StaplerRequest req, StaplerResponse rsp) throws IOException {
         doProgressText(req,rsp);
     }

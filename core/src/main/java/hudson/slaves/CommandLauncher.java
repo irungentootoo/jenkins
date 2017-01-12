@@ -25,6 +25,7 @@ package hudson.slaves;
 
 import hudson.AbortException;
 import hudson.EnvVars;
+import hudson.RestrictedSince;
 import hudson.Util;
 import hudson.Extension;
 import hudson.model.Descriptor;
@@ -43,6 +44,8 @@ import java.util.logging.Logger;
 
 import org.apache.commons.lang.StringUtils;
 import org.jenkinsci.Symbol;
+import org.kohsuke.accmod.Restricted;
+import org.kohsuke.accmod.restrictions.NoExternalUse;
 import org.kohsuke.stapler.DataBoundConstructor;
 import org.kohsuke.stapler.QueryParameter;
 
@@ -189,6 +192,7 @@ public class CommandLauncher extends ComputerLauncher {
             return Messages.CommandLauncher_displayName();
         }
 
+        @RestrictedSince("since TODO 2.4x") @Restricted(NoExternalUse.class) // For Stapler only
         public FormValidation doCheckCommand(@QueryParameter String value) {
             if(Util.fixEmptyAndTrim(value)==null)
                 return FormValidation.error(Messages.CommandLauncher_NoLaunchCommand());

@@ -23,6 +23,9 @@
  */
 package hudson.util;
 
+import hudson.RestrictedSince;
+import org.kohsuke.accmod.Restricted;
+import org.kohsuke.accmod.restrictions.NoExternalUse;
 import org.kohsuke.stapler.StaplerRequest;
 import org.kohsuke.stapler.StaplerResponse;
 
@@ -40,6 +43,7 @@ import java.io.IOException;
  * @author Kohsuke Kawaguchi
  */
 public class HudsonIsRestarting {
+    @RestrictedSince("since TODO 2.4x") @Restricted(NoExternalUse.class) // For Stapler only
     public void doDynamic(StaplerRequest req, StaplerResponse rsp) throws IOException, ServletException, InterruptedException {
         rsp.setStatus(SC_SERVICE_UNAVAILABLE);
         req.getView(this,"index.jelly").forward(req,rsp);

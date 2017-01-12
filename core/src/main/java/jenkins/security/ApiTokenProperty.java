@@ -24,6 +24,7 @@
 package jenkins.security;
 
 import hudson.Extension;
+import hudson.RestrictedSince;
 import jenkins.util.SystemProperties;
 import hudson.Util;
 import hudson.model.Descriptor.FormException;
@@ -178,6 +179,7 @@ public class ApiTokenProperty extends UserProperty {
             return new ApiTokenProperty(API_KEY_SEED.mac(user.getId()));
         }
 
+        @RestrictedSince("since TODO 2.4x") @Restricted(NoExternalUse.class) // For Stapler only
         public HttpResponse doChangeToken(@AncestorInPath User u, StaplerResponse rsp) throws IOException {
             ApiTokenProperty p = u.getProperty(ApiTokenProperty.class);
             if (p==null) {

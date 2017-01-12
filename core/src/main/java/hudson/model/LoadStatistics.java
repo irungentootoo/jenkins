@@ -24,6 +24,7 @@
 package hudson.model;
 
 import hudson.Extension;
+import hudson.RestrictedSince;
 import jenkins.util.SystemProperties;
 import hudson.model.MultiStageTimeSeries.TimeScale;
 import hudson.model.MultiStageTimeSeries.TrendChart;
@@ -43,6 +44,8 @@ import org.jfree.chart.plot.PlotOrientation;
 import org.jfree.chart.renderer.category.LineAndShapeRenderer;
 import org.jfree.data.category.CategoryDataset;
 import org.jfree.ui.RectangleInsets;
+import org.kohsuke.accmod.Restricted;
+import org.kohsuke.accmod.restrictions.NoExternalUse;
 import org.kohsuke.stapler.QueryParameter;
 import org.kohsuke.stapler.export.ExportedBean;
 import org.kohsuke.stapler.export.Exported;
@@ -272,6 +275,7 @@ public abstract class LoadStatistics {
     /**
      * Generates the load statistics graph.
      */
+    @RestrictedSince("since TODO 2.4x") @Restricted(NoExternalUse.class) // For Stapler only
     public TrendChart doGraph(@QueryParameter String type) throws IOException {
         return createTrendChart(TimeScale.parse(type));
     }

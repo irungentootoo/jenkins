@@ -3,6 +3,7 @@ package jenkins.security.s2m;
 import hudson.Extension;
 import hudson.FilePath;
 import hudson.Functions;
+import hudson.RestrictedSince;
 import hudson.Util;
 import hudson.util.HttpResponses;
 import jenkins.model.Jenkins;
@@ -10,6 +11,8 @@ import jenkins.util.io.FileBoolean;
 import org.apache.commons.io.FileUtils;
 import org.jenkinsci.remoting.Role;
 import org.jenkinsci.remoting.RoleSensitive;
+import org.kohsuke.accmod.Restricted;
+import org.kohsuke.accmod.restrictions.NoExternalUse;
 import org.kohsuke.stapler.HttpResponse;
 import org.kohsuke.stapler.QueryParameter;
 import org.kohsuke.stapler.StaplerProxy;
@@ -154,6 +157,7 @@ public class AdminWhitelistRule implements StaplerProxy {
     }
 
     @RequirePOST
+    @RestrictedSince("since TODO 2.4x") @Restricted(NoExternalUse.class) // For Stapler only
     public HttpResponse doSubmit(StaplerRequest req) throws IOException {
         jenkins.checkPermission(Jenkins.RUN_SCRIPTS);
 
@@ -182,6 +186,7 @@ public class AdminWhitelistRule implements StaplerProxy {
      * Approves all the currently rejected subjects
      */
     @RequirePOST
+    @RestrictedSince("since TODO 2.4x") @Restricted(NoExternalUse.class) // For Stapler only
     public HttpResponse doApproveAll() throws IOException {
         StringBuilder buf = new StringBuilder();
         for (Class c : rejected.get()) {
@@ -196,6 +201,7 @@ public class AdminWhitelistRule implements StaplerProxy {
      * Approves specific callables by their names.
      */
     @RequirePOST
+    @RestrictedSince("since TODO 2.4x") @Restricted(NoExternalUse.class) // For Stapler only
     public HttpResponse doApprove(@QueryParameter String value) throws IOException {
         whitelisted.append(value);
         return HttpResponses.ok();

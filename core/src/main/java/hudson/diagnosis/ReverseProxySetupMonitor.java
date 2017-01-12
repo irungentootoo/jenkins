@@ -24,9 +24,12 @@
 package hudson.diagnosis;
 
 import hudson.Extension;
+import hudson.RestrictedSince;
 import hudson.Util;
 import hudson.model.AdministrativeMonitor;
 import org.jenkinsci.Symbol;
+import org.kohsuke.accmod.Restricted;
+import org.kohsuke.accmod.restrictions.NoExternalUse;
 import org.kohsuke.stapler.HttpRedirect;
 import org.kohsuke.stapler.HttpResponse;
 import org.kohsuke.stapler.HttpResponses;
@@ -60,6 +63,7 @@ public class ReverseProxySetupMonitor extends AdministrativeMonitor {
         return true;
     }
 
+    @RestrictedSince("since TODO 2.4x") @Restricted(NoExternalUse.class) // For Stapler only
     public HttpResponse doTest() {
         String referer = Stapler.getCurrentRequest().getReferer();
         Jenkins j = Jenkins.getInstance();
@@ -84,6 +88,7 @@ public class ReverseProxySetupMonitor extends AdministrativeMonitor {
     /**
      * Depending on whether the user said "yes" or "no", send him to the right place.
      */
+    @RestrictedSince("since TODO 2.4x") @Restricted(NoExternalUse.class) // For Stapler only
     public HttpResponse doAct(@QueryParameter String no) throws IOException {
         if(no!=null) { // dismiss
             disable(true);

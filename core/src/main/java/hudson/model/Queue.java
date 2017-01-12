@@ -30,6 +30,7 @@ import com.infradna.tool.bridge_method_injector.WithBridgeMethods;
 import hudson.BulkChange;
 import hudson.ExtensionList;
 import hudson.ExtensionPoint;
+import hudson.RestrictedSince;
 import hudson.Util;
 import hudson.XmlFile;
 import hudson.init.Initializer;
@@ -745,6 +746,7 @@ public class Queue extends ResourceController implements Saveable {
      * Called from {@code queue.jelly} and {@code entries.jelly}.
      */
     @RequirePOST
+    @RestrictedSince("since TODO 2.4x") @Restricted(NoExternalUse.class) // For Stapler only
     public HttpResponse doCancelItem(@QueryParameter long id) throws IOException, ServletException {
         Item item = getItem(id);
         if (item != null) {
@@ -2181,6 +2183,7 @@ public class Queue extends ResourceController implements Saveable {
         /** @deprecated Use {@link #doCancelItem} instead. */
         @Deprecated
         @RequirePOST
+        @RestrictedSince("since TODO 2.4x") @Restricted(NoExternalUse.class) // For Stapler only
         public HttpResponse doCancelQueue() throws IOException, ServletException {
         	Jenkins.getInstance().getQueue().cancel(this);
             return HttpResponses.forwardToPreviousPage();

@@ -26,6 +26,7 @@ package hudson.tools;
 
 import hudson.Extension;
 import hudson.FilePath;
+import hudson.RestrictedSince;
 import jenkins.MasterToSlaveFileCallable;
 import hudson.ProxyConfiguration;
 import hudson.Util;
@@ -43,6 +44,8 @@ import java.net.URL;
 import java.net.URLConnection;
 
 import org.jenkinsci.Symbol;
+import org.kohsuke.accmod.Restricted;
+import org.kohsuke.accmod.restrictions.NoExternalUse;
 import org.kohsuke.stapler.DataBoundConstructor;
 import org.kohsuke.stapler.QueryParameter;
 
@@ -95,6 +98,7 @@ public class ZipExtractionInstaller extends ToolInstaller {
             return Messages.ZipExtractionInstaller_DescriptorImpl_displayName();
         }
 
+        @RestrictedSince("since TODO 2.4x") @Restricted(NoExternalUse.class) // For Stapler only
         public FormValidation doCheckUrl(@QueryParameter String value) {
             try {
                 URLConnection conn = ProxyConfiguration.open(new URL(value));

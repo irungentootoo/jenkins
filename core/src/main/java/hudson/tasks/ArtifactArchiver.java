@@ -24,6 +24,7 @@
 package hudson.tasks;
 
 import hudson.FilePath;
+import hudson.RestrictedSince;
 import jenkins.MasterToSlaveFileCallable;
 import hudson.Launcher;
 import hudson.Util;
@@ -40,6 +41,8 @@ import java.io.File;
 
 import org.apache.tools.ant.types.FileSet;
 import org.jenkinsci.Symbol;
+import org.kohsuke.accmod.Restricted;
+import org.kohsuke.accmod.restrictions.NoExternalUse;
 import org.kohsuke.stapler.StaplerRequest;
 import org.kohsuke.stapler.DataBoundConstructor;
 import org.kohsuke.stapler.AncestorInPath;
@@ -323,6 +326,7 @@ public class ArtifactArchiver extends Recorder implements SimpleBuildStep {
          * Performs on-the-fly validation of the file mask wildcard, when the artifacts
          * textbox or the caseSensitive checkbox are modified
          */
+        @RestrictedSince("since TODO 2.4x") @Restricted(NoExternalUse.class) // For Stapler only
         public FormValidation doCheckArtifacts(@AncestorInPath AbstractProject project,
                 @QueryParameter String value,
                 @QueryParameter(value = "caseSensitive") String caseSensitive)

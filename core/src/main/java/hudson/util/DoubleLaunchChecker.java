@@ -23,11 +23,14 @@
  */
 package hudson.util;
 
+import hudson.RestrictedSince;
 import hudson.init.Initializer;
 import jenkins.model.Jenkins;
 import hudson.triggers.SafeTimerTask;
 import jenkins.util.Timer;
 import org.apache.commons.io.FileUtils;
+import org.kohsuke.accmod.Restricted;
+import org.kohsuke.accmod.restrictions.NoExternalUse;
 import org.kohsuke.stapler.StaplerRequest;
 import org.kohsuke.stapler.StaplerResponse;
 
@@ -166,6 +169,7 @@ public class DoubleLaunchChecker {
     /**
      * Serve all URLs with the index view.
      */
+    @RestrictedSince("since TODO 2.4x") @Restricted(NoExternalUse.class) // For Stapler only
     public void doDynamic(StaplerRequest req, StaplerResponse rsp) throws IOException, ServletException {
         rsp.setStatus(SC_INTERNAL_SERVER_ERROR);
         req.getView(this,"index.jelly").forward(req,rsp);
@@ -174,6 +178,7 @@ public class DoubleLaunchChecker {
     /**
      * Ignore the problem and go back to using Hudson.
      */
+    @RestrictedSince("since TODO 2.4x") @Restricted(NoExternalUse.class) // For Stapler only
     public void doIgnore(StaplerRequest req, StaplerResponse rsp) throws IOException {
         ignore = true;
         Jenkins.getInstance().servletContext.setAttribute("app", Jenkins.getInstance());

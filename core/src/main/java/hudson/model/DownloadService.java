@@ -28,6 +28,7 @@ import hudson.ExtensionList;
 import hudson.ExtensionListListener;
 import hudson.ExtensionPoint;
 import hudson.ProxyConfiguration;
+import hudson.RestrictedSince;
 import jenkins.util.SystemProperties;
 import hudson.init.InitMilestone;
 import hudson.init.Initializer;
@@ -370,6 +371,7 @@ public class DownloadService extends PageDecorator {
         /**
          * This is where the browser sends us the data. 
          */
+        @RestrictedSince("since TODO 2.4x") @Restricted(NoExternalUse.class) // For Stapler only
         public void doPostBack(StaplerRequest req, StaplerResponse rsp) throws IOException {
             DownloadSettings.checkPostBackAccess();
             long dataTimestamp = System.currentTimeMillis();

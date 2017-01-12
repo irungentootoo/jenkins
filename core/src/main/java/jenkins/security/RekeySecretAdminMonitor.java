@@ -1,6 +1,7 @@
 package jenkins.security;
 
 import hudson.Extension;
+import hudson.RestrictedSince;
 import hudson.init.InitMilestone;
 import hudson.init.Initializer;
 import hudson.model.TaskListener;
@@ -11,6 +12,8 @@ import jenkins.management.AsynchronousAdministrativeMonitor;
 import jenkins.model.Jenkins;
 import jenkins.util.io.FileBoolean;
 import org.jenkinsci.Symbol;
+import org.kohsuke.accmod.Restricted;
+import org.kohsuke.accmod.restrictions.NoExternalUse;
 import org.kohsuke.stapler.HttpResponse;
 import org.kohsuke.stapler.StaplerProxy;
 import org.kohsuke.stapler.StaplerRequest;
@@ -92,6 +95,7 @@ public class RekeySecretAdminMonitor extends AsynchronousAdministrativeMonitor i
     }
 
     @RequirePOST
+    @RestrictedSince("since TODO 2.4x") @Restricted(NoExternalUse.class) // For Stapler only
     public HttpResponse doScan(StaplerRequest req) throws IOException, GeneralSecurityException {
         if(req.hasParameter("background")) {
             start(false);

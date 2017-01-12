@@ -29,6 +29,7 @@ import com.thoughtworks.xstream.io.HierarchicalStreamReader;
 import com.thoughtworks.xstream.io.HierarchicalStreamWriter;
 import hudson.BulkChange;
 import hudson.CopyOnWrite;
+import hudson.RestrictedSince;
 import hudson.XmlFile;
 import hudson.model.Action;
 import hudson.model.Descriptor.FormException;
@@ -40,6 +41,7 @@ import hudson.model.Saveable;
 import hudson.model.listeners.SaveableListener;
 import org.kohsuke.accmod.Restricted;
 import org.kohsuke.accmod.restrictions.DoNotUse;
+import org.kohsuke.accmod.restrictions.NoExternalUse;
 import org.kohsuke.stapler.StaplerRequest;
 import org.kohsuke.stapler.StaplerResponse;
 import org.kohsuke.stapler.export.Exported;
@@ -198,6 +200,7 @@ public class LabelAtom extends Label implements Saveable {
      * Accepts the update to the node configuration.
      */
     @RequirePOST
+    @RestrictedSince("since TODO 2.4x") @Restricted(NoExternalUse.class) // For Stapler only
     public void doConfigSubmit( StaplerRequest req, StaplerResponse rsp ) throws IOException, ServletException, FormException {
         final Jenkins app = Jenkins.getInstance();
 

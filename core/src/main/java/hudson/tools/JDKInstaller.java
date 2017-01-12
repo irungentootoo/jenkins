@@ -29,6 +29,7 @@ import hudson.FilePath;
 import hudson.Launcher;
 import hudson.Launcher.ProcStarter;
 import hudson.ProxyConfiguration;
+import hudson.RestrictedSince;
 import hudson.Util;
 import hudson.model.DownloadService.Downloadable;
 import hudson.model.JDK;
@@ -53,6 +54,8 @@ import org.apache.commons.httpclient.methods.PostMethod;
 import org.apache.commons.httpclient.protocol.Protocol;
 import org.apache.commons.io.IOUtils;
 import org.jenkinsci.Symbol;
+import org.kohsuke.accmod.Restricted;
+import org.kohsuke.accmod.restrictions.NoExternalUse;
 import org.kohsuke.stapler.DataBoundConstructor;
 import org.kohsuke.stapler.HttpResponse;
 import org.kohsuke.stapler.QueryParameter;
@@ -761,6 +764,7 @@ public class JDKInstaller extends ToolInstaller {
             return password;
         }
 
+        @RestrictedSince("since TODO 2.4x") @Restricted(NoExternalUse.class) // For Stapler only
         public FormValidation doCheckId(@QueryParameter String value) {
             if (Util.fixEmpty(value) == null)
                 return FormValidation.error(Messages.JDKInstaller_DescriptorImpl_doCheckId()); // improve message
@@ -775,6 +779,7 @@ public class JDKInstaller extends ToolInstaller {
             return Arrays.asList(JDKList.all().get(JDKList.class).toList().data);
         }
 
+        @RestrictedSince("since TODO 2.4x") @Restricted(NoExternalUse.class) // For Stapler only
         public FormValidation doCheckAcceptLicense(@QueryParameter boolean value) {
             if (username==null || password==null)
                 return FormValidation.errorWithMarkup(Messages.JDKInstaller_RequireOracleAccount(Stapler.getCurrentRequest().getContextPath()+'/'+getDescriptorUrl()+"/enterCredential"));
@@ -788,6 +793,7 @@ public class JDKInstaller extends ToolInstaller {
         /**
          * Submits the Oracle account username/password.
          */
+        @RestrictedSince("since TODO 2.4x") @Restricted(NoExternalUse.class) // For Stapler only
         public HttpResponse doPostCredential(@QueryParameter String username, @QueryParameter String password) throws IOException, ServletException {
             this.username = username;
             this.password = Secret.fromString(password);

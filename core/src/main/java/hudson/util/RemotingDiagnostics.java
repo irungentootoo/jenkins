@@ -27,6 +27,7 @@ import groovy.lang.Binding;
 import groovy.lang.GroovyShell;
 import hudson.FilePath;
 import hudson.Functions;
+import hudson.RestrictedSince;
 import jenkins.model.Jenkins;
 import hudson.remoting.AsyncFutureImpl;
 import hudson.remoting.DelegatingCallable;
@@ -37,6 +38,8 @@ import jenkins.security.MasterToSlaveCallable;
 
 import org.codehaus.groovy.control.CompilerConfiguration;
 import org.codehaus.groovy.control.customizers.ImportCustomizer;
+import org.kohsuke.accmod.Restricted;
+import org.kohsuke.accmod.restrictions.NoExternalUse;
 import org.kohsuke.stapler.StaplerRequest;
 import org.kohsuke.stapler.StaplerResponse;
 import org.kohsuke.stapler.WebMethod;
@@ -188,11 +191,13 @@ public final class RemotingDiagnostics {
         /**
          * Obtains the heap dump.
          */
+        @RestrictedSince("since TODO 2.4x") @Restricted(NoExternalUse.class) // For Stapler only
         public void doIndex(StaplerResponse rsp) throws IOException {
             rsp.sendRedirect("heapdump.hprof");
         }
 
         @WebMethod(name="heapdump.hprof")
+        @RestrictedSince("since TODO 2.4x") @Restricted(NoExternalUse.class) // For Stapler only
         public void doHeapDump(StaplerRequest req, StaplerResponse rsp) throws IOException, InterruptedException {
             owner.checkPermission(Jenkins.RUN_SCRIPTS);
             rsp.setContentType("application/octet-stream");

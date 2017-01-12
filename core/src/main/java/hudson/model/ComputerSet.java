@@ -26,6 +26,7 @@ package hudson.model;
 import hudson.BulkChange;
 import hudson.DescriptorExtensionList;
 import hudson.Extension;
+import hudson.RestrictedSince;
 import hudson.Util;
 import hudson.XmlFile;
 import hudson.init.Initializer;
@@ -41,6 +42,8 @@ import jenkins.model.Jenkins;
 import jenkins.model.ModelObjectWithChildren;
 import jenkins.model.ModelObjectWithContextMenu.ContextMenu;
 import jenkins.util.Timer;
+import org.kohsuke.accmod.Restricted;
+import org.kohsuke.accmod.restrictions.NoExternalUse;
 import org.kohsuke.stapler.HttpResponse;
 import org.kohsuke.stapler.QueryParameter;
 import org.kohsuke.stapler.StaplerRequest;
@@ -106,6 +109,7 @@ public final class ComputerSet extends AbstractModelObject implements Describabl
         return Jenkins.getInstance().getComputers();
     }
 
+    @RestrictedSince("since TODO 2.4x") @Restricted(NoExternalUse.class) // For Stapler only
     public ContextMenu doChildrenContextMenu(StaplerRequest request, StaplerResponse response) throws Exception {
         ContextMenu m = new ContextMenu();
         for (Computer c : get_all()) {
@@ -216,6 +220,7 @@ public final class ComputerSet extends AbstractModelObject implements Describabl
      *
      * TODO: ajax on the client side to wait until the update completion might be nice.
      */
+    @RestrictedSince("since TODO 2.4x") @Restricted(NoExternalUse.class) // For Stapler only
     public void doUpdateNow( StaplerRequest req, StaplerResponse rsp ) throws IOException, ServletException {
         Jenkins.getInstance().checkPermission(Jenkins.ADMINISTER);
         
@@ -321,6 +326,7 @@ public final class ComputerSet extends AbstractModelObject implements Describabl
     /**
      * Makes sure that the given name is good as an agent name.
      */
+    @RestrictedSince("since TODO 2.4x") @Restricted(NoExternalUse.class) // For Stapler only
     public FormValidation doCheckName(@QueryParameter String value) throws IOException, ServletException {
         Jenkins.getInstance().checkPermission(Computer.CREATE);
 
@@ -384,6 +390,7 @@ public final class ComputerSet extends AbstractModelObject implements Describabl
         /**
          * Auto-completion for the "copy from" field in the new job page.
          */
+        @RestrictedSince("since TODO 2.4x") @Restricted(NoExternalUse.class) // For Stapler only
         public AutoCompletionCandidates doAutoCompleteCopyNewItemFrom(@QueryParameter final String value) {
             final AutoCompletionCandidates r = new AutoCompletionCandidates();
 

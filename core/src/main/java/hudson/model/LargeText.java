@@ -23,10 +23,13 @@
  */
 package hudson.model;
 
+import hudson.RestrictedSince;
 import hudson.util.ByteBuffer;
 import hudson.util.CharSpool;
 import hudson.util.LineEndNormalizingWriter;
 import org.apache.commons.fileupload.util.Closeable;
+import org.kohsuke.accmod.Restricted;
+import org.kohsuke.accmod.restrictions.NoExternalUse;
 import org.kohsuke.stapler.StaplerRequest;
 import org.kohsuke.stapler.StaplerResponse;
 import org.kohsuke.stapler.framework.io.WriterOutputStream;
@@ -176,6 +179,7 @@ public class LargeText {
      * Implements the progressive text handling.
      * This method is used as a "web method" with progressiveText.jelly.
      */
+    @RestrictedSince("since TODO 2.4x") @Restricted(NoExternalUse.class) // For Stapler only
     public void doProgressText(StaplerRequest req, StaplerResponse rsp) throws IOException {
         rsp.setContentType("text/plain");
         rsp.setStatus(HttpServletResponse.SC_OK);

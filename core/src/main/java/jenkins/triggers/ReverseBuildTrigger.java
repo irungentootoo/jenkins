@@ -26,6 +26,7 @@ package jenkins.triggers;
 
 import hudson.Extension;
 import hudson.ExtensionList;
+import hudson.RestrictedSince;
 import hudson.Util;
 import hudson.console.ModelHyperlinkNote;
 import hudson.model.AbstractBuild;
@@ -71,6 +72,8 @@ import org.acegisecurity.context.SecurityContext;
 import org.acegisecurity.context.SecurityContextHolder;
 import org.apache.commons.lang.StringUtils;
 import org.jenkinsci.Symbol;
+import org.kohsuke.accmod.Restricted;
+import org.kohsuke.accmod.restrictions.NoExternalUse;
 import org.kohsuke.stapler.AncestorInPath;
 import org.kohsuke.stapler.DataBoundConstructor;
 import org.kohsuke.stapler.QueryParameter;
@@ -170,10 +173,12 @@ public final class ReverseBuildTrigger extends Trigger<Job> implements Dependenc
             return item instanceof Job && item instanceof ParameterizedJobMixIn.ParameterizedJob;
         }
 
+        @RestrictedSince("since TODO 2.4x") @Restricted(NoExternalUse.class) // For Stapler only
         public AutoCompletionCandidates doAutoCompleteUpstreamProjects(@QueryParameter String value, @AncestorInPath Item self, @AncestorInPath ItemGroup container) {
             return AutoCompletionCandidates.ofJobNames(Job.class, value, self, container);
         }
 
+        @RestrictedSince("since TODO 2.4x") @Restricted(NoExternalUse.class) // For Stapler only
         public FormValidation doCheckUpstreamProjects(@AncestorInPath Job project, @QueryParameter String value) {
             if (!project.hasPermission(Item.CONFIGURE)) {
                 return FormValidation.ok();

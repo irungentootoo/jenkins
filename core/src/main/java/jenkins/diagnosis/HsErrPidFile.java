@@ -1,8 +1,11 @@
 package jenkins.diagnosis;
 
+import hudson.RestrictedSince;
 import hudson.Util;
 import hudson.util.HttpResponses;
 import jenkins.model.Jenkins;
+import org.kohsuke.accmod.Restricted;
+import org.kohsuke.accmod.restrictions.NoExternalUse;
 import org.kohsuke.stapler.HttpResponse;
 
 import java.io.File;
@@ -43,11 +46,13 @@ public class HsErrPidFile {
         return Util.getTimeSpanString(System.currentTimeMillis()-getLastModified());
     }
 
+    @RestrictedSince("since TODO 2.4x") @Restricted(NoExternalUse.class) // For Stapler only
     public HttpResponse doDownload() throws IOException {
         Jenkins.getInstance().checkPermission(Jenkins.ADMINISTER);
         return HttpResponses.staticResource(file);
     }
 
+    @RestrictedSince("since TODO 2.4x") @Restricted(NoExternalUse.class) // For Stapler only
     public HttpResponse doDelete() throws IOException {
         Jenkins.getInstance().checkPermission(Jenkins.ADMINISTER);
         file.delete();

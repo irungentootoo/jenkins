@@ -30,6 +30,7 @@ import hudson.Functions;
 import hudson.PluginManager;
 import hudson.PluginWrapper;
 import hudson.ProxyConfiguration;
+import hudson.RestrictedSince;
 import hudson.security.ACLContext;
 import jenkins.util.SystemProperties;
 import hudson.Util;
@@ -618,6 +619,7 @@ public class UpdateCenter extends AbstractModelObject implements Saveable, OnMas
      * Schedules a Jenkins upgrade.
      */
     @RequirePOST
+    @RestrictedSince("since TODO 2.4x") @Restricted(NoExternalUse.class) // For Stapler only
     public void doUpgrade(StaplerResponse rsp) throws IOException, ServletException {
         Jenkins.getInstance().checkPermission(Jenkins.ADMINISTER);
         HudsonUpgradeJob job = new HudsonUpgradeJob(getCoreSource(), Jenkins.getAuthentication());
@@ -636,6 +638,7 @@ public class UpdateCenter extends AbstractModelObject implements Saveable, OnMas
      *
      * @since 1.432
      */
+    @RestrictedSince("since TODO 2.4x") @Restricted(NoExternalUse.class) // For Stapler only
     public HttpResponse doInvalidateData() {
         Jenkins.getInstance().checkPermission(Jenkins.ADMINISTER);
         for (UpdateSite site : sites) {
@@ -649,6 +652,8 @@ public class UpdateCenter extends AbstractModelObject implements Saveable, OnMas
     /**
      * Schedules a Jenkins restart.
      */
+    @RestrictedSince("since TODO 2.4x") @Restricted(NoExternalUse.class) // For Stapler only
+    // TODO @RequirePost?
     public void doSafeRestart(StaplerRequest request, StaplerResponse response) throws IOException, ServletException {
         synchronized (jobs) {
             if (!isRestartScheduled()) {
@@ -663,6 +668,8 @@ public class UpdateCenter extends AbstractModelObject implements Saveable, OnMas
     /**
      * Cancel all scheduled jenkins restarts
      */
+    @RestrictedSince("since TODO 2.4x") @Restricted(NoExternalUse.class) // For Stapler only
+    // TODO @RequirePOST?
     public void doCancelRestart(StaplerResponse response) throws IOException, ServletException {
         synchronized (jobs) {
             for (UpdateCenterJob job : jobs) {
@@ -721,6 +728,7 @@ public class UpdateCenter extends AbstractModelObject implements Saveable, OnMas
      * Performs hudson downgrade.
      */
     @RequirePOST
+    @RestrictedSince("since TODO 2.4x") @Restricted(NoExternalUse.class) // For Stapler only
     public void doDowngrade(StaplerResponse rsp) throws IOException, ServletException {
         Jenkins.getInstance().checkPermission(Jenkins.ADMINISTER);
         if(!isDowngradable()) {
@@ -737,6 +745,7 @@ public class UpdateCenter extends AbstractModelObject implements Saveable, OnMas
     /**
      * Performs hudson downgrade.
      */
+    @RestrictedSince("since TODO 2.4x") @Restricted(NoExternalUse.class) // For Stapler only
     public void doRestart(StaplerResponse rsp) throws IOException, ServletException {
         Jenkins.getInstance().checkPermission(Jenkins.ADMINISTER);
         HudsonDowngradeJob job = new HudsonDowngradeJob(getCoreSource(), Jenkins.getAuthentication());

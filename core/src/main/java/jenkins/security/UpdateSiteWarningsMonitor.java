@@ -27,6 +27,7 @@ package jenkins.security;
 import hudson.Extension;
 import hudson.ExtensionList;
 import hudson.PluginWrapper;
+import hudson.RestrictedSince;
 import hudson.model.AdministrativeMonitor;
 import hudson.model.UpdateSite;
 import hudson.util.HttpResponses;
@@ -142,6 +143,7 @@ public class UpdateSiteWarningsMonitor extends AdministrativeMonitor {
      * Redirects the user to the plugin manager or security configuration
      */
     @RequirePOST
+    @RestrictedSince("since TODO 2.4x") @Restricted(NoExternalUse.class) // For Stapler only
     public HttpResponse doForward(@QueryParameter String fix, @QueryParameter String configure) {
         if (fix != null) {
             return HttpResponses.redirectViaContextPath("pluginManager");

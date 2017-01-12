@@ -23,12 +23,15 @@
  */
 package hudson.scm;
 
+import hudson.RestrictedSince;
 import hudson.model.AbstractBuild;
 import hudson.model.TaskAction;
 import hudson.model.BuildBadgeAction;
 import hudson.model.Run;
 import hudson.security.Permission;
 import hudson.security.ACL;
+import org.kohsuke.accmod.Restricted;
+import org.kohsuke.accmod.restrictions.NoExternalUse;
 import org.kohsuke.stapler.StaplerRequest;
 import org.kohsuke.stapler.StaplerResponse;
 
@@ -105,6 +108,7 @@ public abstract class AbstractScmTagAction extends TaskAction implements BuildBa
         return run.getACL();
     }
 
+    @RestrictedSince("since TODO 2.4x") @Restricted(NoExternalUse.class) // For Stapler only
     public void doIndex(StaplerRequest req, StaplerResponse rsp) throws IOException, ServletException {
         req.getView(this,chooseAction()).forward(req,rsp);
     }

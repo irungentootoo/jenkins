@@ -60,6 +60,8 @@ import org.apache.commons.httpclient.auth.AuthScope;
 import org.apache.commons.httpclient.methods.GetMethod;
 import org.jenkinsci.Symbol;
 import org.jvnet.robust_http_client.RetryableHttpStream;
+import org.kohsuke.accmod.Restricted;
+import org.kohsuke.accmod.restrictions.NoExternalUse;
 import org.kohsuke.stapler.DataBoundConstructor;
 import org.kohsuke.stapler.QueryParameter;
 
@@ -317,6 +319,7 @@ public final class ProxyConfiguration extends AbstractDescribableImpl<ProxyConfi
             return "Proxy Configuration";
         }
 
+        @RestrictedSince("since TODO 2.4x") @Restricted(NoExternalUse.class) // For Stapler only
         public FormValidation doCheckPort(@QueryParameter String value) {
             value = Util.fixEmptyAndTrim(value);
             if (value == null) {
@@ -334,6 +337,7 @@ public final class ProxyConfiguration extends AbstractDescribableImpl<ProxyConfi
             return FormValidation.ok();
         }
 
+        @RestrictedSince("since TODO 2.4x") @Restricted(NoExternalUse.class) // For Stapler only
         public FormValidation doValidateProxy(
                 @QueryParameter("testUrl") String testUrl, @QueryParameter("name") String name, @QueryParameter("port") int port,
                 @QueryParameter("userName") String userName, @QueryParameter("password") String password,

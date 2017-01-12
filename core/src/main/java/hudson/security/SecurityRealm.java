@@ -27,6 +27,7 @@ import groovy.lang.Binding;
 import hudson.ExtensionPoint;
 import hudson.DescriptorExtensionList;
 import hudson.Extension;
+import hudson.RestrictedSince;
 import hudson.cli.CLICommand;
 import hudson.model.AbstractDescribableImpl;
 import hudson.model.Descriptor;
@@ -51,6 +52,7 @@ import org.acegisecurity.userdetails.UsernameNotFoundException;
 import org.apache.commons.lang.StringUtils;
 import org.kohsuke.accmod.Restricted;
 import org.kohsuke.accmod.restrictions.DoNotUse;
+import org.kohsuke.accmod.restrictions.NoExternalUse;
 import org.kohsuke.stapler.HttpResponse;
 import org.kohsuke.stapler.Stapler;
 import org.kohsuke.stapler.StaplerRequest;
@@ -293,6 +295,7 @@ public abstract class SecurityRealm extends AbstractDescribableImpl<SecurityReal
      *
      * @since 1.314
      */
+    @RestrictedSince("since TODO 2.4x") @Restricted(NoExternalUse.class) // For Stapler only
     public void doLogout(StaplerRequest req, StaplerResponse rsp) throws IOException, ServletException {
         HttpSession session = req.getSession(false);
         if(session!=null)

@@ -24,6 +24,7 @@
 package hudson.tasks;
 
 import hudson.FilePath;
+import hudson.RestrictedSince;
 import hudson.Util;
 import hudson.Extension;
 import hudson.model.AbstractProject;
@@ -38,6 +39,7 @@ import org.apache.commons.lang.SystemUtils;
 import org.jenkinsci.Symbol;
 import org.kohsuke.accmod.Restricted;
 import org.kohsuke.accmod.restrictions.DoNotUse;
+import org.kohsuke.accmod.restrictions.NoExternalUse;
 import org.kohsuke.stapler.DataBoundConstructor;
 import org.kohsuke.stapler.DataBoundSetter;
 import org.kohsuke.stapler.StaplerRequest;
@@ -222,6 +224,7 @@ public class Shell extends CommandInterpreter {
         /**
          * Check the existence of sh in the given location.
          */
+        @RestrictedSince("since TODO 2.4x") @Restricted(NoExternalUse.class) // For Stapler only
         public FormValidation doCheckShell(@QueryParameter String value) {
             // Executable requires admin permission
             return FormValidation.validateExecutable(value);

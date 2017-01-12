@@ -1,7 +1,10 @@
 package jenkins.model;
 
+import hudson.RestrictedSince;
 import hudson.model.ModelObject;
 import jenkins.model.ModelObjectWithContextMenu.ContextMenu;
+import org.kohsuke.accmod.Restricted;
+import org.kohsuke.accmod.restrictions.NoExternalUse;
 import org.kohsuke.stapler.StaplerRequest;
 import org.kohsuke.stapler.StaplerResponse;
 
@@ -20,5 +23,6 @@ public interface ModelObjectWithChildren extends ModelObject {
     /**
      * Generates the context menu to list up all the children.
      */
+    @RestrictedSince("since TODO 2.4x") @Restricted(NoExternalUse.class) // For Stapler only
     public ContextMenu doChildrenContextMenu(StaplerRequest request, StaplerResponse response) throws Exception;
 }

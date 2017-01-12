@@ -25,6 +25,7 @@
 package hudson.model;
 
 import hudson.Extension;
+import hudson.RestrictedSince;
 import hudson.Util;
 import hudson.diagnosis.OldDataMonitor;
 import hudson.model.Descriptor.FormException;
@@ -321,6 +322,7 @@ public class ListView extends View implements DirectlyModifiableView {
 
     @Override
     @RequirePOST
+    @RestrictedSince("since TODO 2.4x") @Restricted(NoExternalUse.class) // For Stapler only
     public Item doCreateItem(StaplerRequest req, StaplerResponse rsp) throws IOException, ServletException {
         JSONObject form = req.getSubmittedForm();
         boolean addToCurrentView = form.has("addToCurrentView") && form.getBoolean("addToCurrentView");
@@ -342,6 +344,7 @@ public class ListView extends View implements DirectlyModifiableView {
 
     @Override
     @RequirePOST
+    @RestrictedSince("since TODO 2.4x") @Restricted(NoExternalUse.class) // For Stapler only
     public HttpResponse doAddJobToView(@QueryParameter String name) throws IOException, ServletException {
         checkPermission(View.CONFIGURE);
         if(name==null)
@@ -361,6 +364,7 @@ public class ListView extends View implements DirectlyModifiableView {
 
     @Override
     @RequirePOST
+    @RestrictedSince("since TODO 2.4x") @Restricted(NoExternalUse.class) // For Stapler only
     public HttpResponse doRemoveJobFromView(@QueryParameter String name) throws IOException, ServletException {
         checkPermission(View.CONFIGURE);
         if(name==null)
@@ -442,6 +446,7 @@ public class ListView extends View implements DirectlyModifiableView {
         /**
          * Checks if the include regular expression is valid.
          */
+        @RestrictedSince("since TODO 2.4x") @Restricted(NoExternalUse.class) // For Stapler only
         public FormValidation doCheckIncludeRegex( @QueryParameter String value ) throws IOException, ServletException, InterruptedException  {
             String v = Util.fixEmpty(value);
             if (v != null) {

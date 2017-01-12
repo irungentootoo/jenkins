@@ -24,6 +24,7 @@
 package hudson.model;
 
 import hudson.FilePath;
+import hudson.RestrictedSince;
 import hudson.Util;
 import hudson.model.Queue.Executable;
 import hudson.model.queue.Executables;
@@ -828,6 +829,7 @@ public class Executor extends Thread implements ModelObject {
      */
     @RequirePOST
     @Deprecated
+    @RestrictedSince("since TODO 2.4x") @Restricted(NoExternalUse.class) // For Stapler only
     public void doStop( StaplerRequest req, StaplerResponse rsp ) throws IOException, ServletException {
         doStop().generateResponse(req,rsp,this);
     }
@@ -838,6 +840,7 @@ public class Executor extends Thread implements ModelObject {
      * @since 1.489
      */
     @RequirePOST
+    @RestrictedSince("since TODO 2.4x") @Restricted(NoExternalUse.class) // For Stapler only
     public HttpResponse doStop() {
         lock.writeLock().lock(); // need write lock as interrupt will change the field
         try {
@@ -855,6 +858,7 @@ public class Executor extends Thread implements ModelObject {
      * @deprecated now a no-op
      */
     @Deprecated
+    @RestrictedSince("since TODO 2.4x") @Restricted(NoExternalUse.class) // For Stapler only
     public HttpResponse doYank() {
         return HttpResponses.redirectViaContextPath("/");
     }

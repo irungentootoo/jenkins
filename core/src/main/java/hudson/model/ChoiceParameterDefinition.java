@@ -1,7 +1,10 @@
 package hudson.model;
 
+import hudson.RestrictedSince;
 import hudson.util.FormValidation;
 import org.jenkinsci.Symbol;
+import org.kohsuke.accmod.Restricted;
+import org.kohsuke.accmod.restrictions.NoExternalUse;
 import org.kohsuke.stapler.QueryParameter;
 import org.kohsuke.stapler.StaplerRequest;
 import org.kohsuke.stapler.DataBoundConstructor;
@@ -107,6 +110,7 @@ public class ChoiceParameterDefinition extends SimpleParameterDefinition {
         /**
          * Checks if parameterised build choices are valid.
          */
+        @RestrictedSince("since TODO 2.4x") @Restricted(NoExternalUse.class) // For Stapler only
         public FormValidation doCheckChoices(@QueryParameter String value) {
             if (ChoiceParameterDefinition.areValidChoices(value)) {
                 return FormValidation.ok();

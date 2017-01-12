@@ -31,6 +31,7 @@ import java.util.UUID;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletResponse;
 
+import hudson.RestrictedSince;
 import hudson.model.UnprotectedRootAction;
 import jenkins.model.Jenkins;
 
@@ -70,6 +71,7 @@ public class CLIAction implements UnprotectedRootAction, StaplerProxy {
         return jenkins.CLI.DISABLED ? null : "cli";
     }
 
+    @RestrictedSince("since TODO 2.4x") @Restricted(NoExternalUse.class) // For Stapler only
     public void doCommand(StaplerRequest req, StaplerResponse rsp) throws ServletException, IOException {
         final Jenkins jenkins = Jenkins.getActiveInstance();
         jenkins.checkPermission(Jenkins.READ);

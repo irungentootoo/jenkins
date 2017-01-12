@@ -28,6 +28,7 @@ package hudson.model;
 import hudson.EnvVars;
 import hudson.Extension;
 import hudson.Launcher.ProcStarter;
+import hudson.RestrictedSince;
 import jenkins.util.SystemProperties;
 import hudson.Util;
 import hudson.cli.declarative.CLIMethod;
@@ -1323,10 +1324,12 @@ public /*transient*/ abstract class Computer extends Actionable implements Acces
 // UI
 //
 //
+    @RestrictedSince("since TODO 2.4x") @Restricted(NoExternalUse.class) // For Stapler only
     public void doRssAll( StaplerRequest req, StaplerResponse rsp ) throws IOException, ServletException {
         rss(req, rsp, " all builds", getBuilds());
     }
 
+    @RestrictedSince("since TODO 2.4x") @Restricted(NoExternalUse.class) // For Stapler only
     public void doRssFailed(StaplerRequest req, StaplerResponse rsp ) throws IOException, ServletException {
         rss(req, rsp, " failed builds", getBuilds().failureOnly());
     }
@@ -1336,6 +1339,7 @@ public /*transient*/ abstract class Computer extends Actionable implements Acces
     }
 
     @RequirePOST
+    @RestrictedSince("since TODO 2.4x") @Restricted(NoExternalUse.class) // For Stapler only
     public HttpResponse doToggleOffline(@QueryParameter String offlineMessage) throws IOException, ServletException {
         if(!temporarilyOffline) {
             checkPermission(DISCONNECT);
@@ -1350,6 +1354,7 @@ public /*transient*/ abstract class Computer extends Actionable implements Acces
     }
 
     @RequirePOST
+    @RestrictedSince("since TODO 2.4x") @Restricted(NoExternalUse.class) // For Stapler only
     public HttpResponse doChangeOfflineCause(@QueryParameter String offlineMessage) throws IOException, ServletException {
         checkPermission(DISCONNECT);
         offlineMessage = Util.fixEmptyAndTrim(offlineMessage);
@@ -1365,6 +1370,7 @@ public /*transient*/ abstract class Computer extends Actionable implements Acces
     /**
      * Dumps the contents of the export table.
      */
+    @RestrictedSince("since TODO 2.4x") @Restricted(NoExternalUse.class) // For Stapler only
     public void doDumpExportTable( StaplerRequest req, StaplerResponse rsp ) throws IOException, ServletException, InterruptedException {
         // this is a debug probe and may expose sensitive information
         checkPermission(Jenkins.ADMINISTER);
@@ -1399,6 +1405,7 @@ public /*transient*/ abstract class Computer extends Actionable implements Acces
      * For system diagnostics.
      * Run arbitrary Groovy script.
      */
+    @RestrictedSince("since TODO 2.4x") @Restricted(NoExternalUse.class) // For Stapler only
     public void doScript(StaplerRequest req, StaplerResponse rsp) throws IOException, ServletException {
         _doScript(req, rsp, "_script.jelly");
     }
@@ -1406,6 +1413,7 @@ public /*transient*/ abstract class Computer extends Actionable implements Acces
     /**
      * Run arbitrary Groovy script and return result as plain text.
      */
+    @RestrictedSince("since TODO 2.4x") @Restricted(NoExternalUse.class) // For Stapler only
     public void doScriptText(StaplerRequest req, StaplerResponse rsp) throws IOException, ServletException {
         _doScript(req, rsp, "_scriptText.jelly");
     }
@@ -1418,6 +1426,7 @@ public /*transient*/ abstract class Computer extends Actionable implements Acces
      * Accepts the update to the node configuration.
      */
     @RequirePOST
+    @RestrictedSince("since TODO 2.4x") @Restricted(NoExternalUse.class) // For Stapler only
     public void doConfigSubmit( StaplerRequest req, StaplerResponse rsp ) throws IOException, ServletException, FormException {
         checkPermission(CONFIGURE);
 
@@ -1445,6 +1454,7 @@ public /*transient*/ abstract class Computer extends Actionable implements Acces
      * Accepts <tt>config.xml</tt> submission, as well as serve it.
      */
     @WebMethod(name = "config.xml")
+    @RestrictedSince("since TODO 2.4x") @Restricted(NoExternalUse.class) // For Stapler only
     public void doConfigDotXml(StaplerRequest req, StaplerResponse rsp)
             throws IOException, ServletException {
 
@@ -1484,6 +1494,7 @@ public /*transient*/ abstract class Computer extends Actionable implements Acces
      * Really deletes the agent.
      */
     @RequirePOST
+    @RestrictedSince("since TODO 2.4x") @Restricted(NoExternalUse.class) // For Stapler only
     public HttpResponse doDoDelete() throws IOException {
         checkPermission(DELETE);
         Node node = getNode();
@@ -1516,6 +1527,7 @@ public /*transient*/ abstract class Computer extends Actionable implements Acces
     /**
      * Handles incremental log.
      */
+    @RestrictedSince("since TODO 2.4x") @Restricted(NoExternalUse.class) // For Stapler only
     public void doProgressiveLog( StaplerRequest req, StaplerResponse rsp) throws IOException {
         getLogText().doProgressText(req, rsp);
     }

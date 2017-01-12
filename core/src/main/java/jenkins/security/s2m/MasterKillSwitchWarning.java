@@ -1,7 +1,10 @@
 package jenkins.security.s2m;
 
 import hudson.Extension;
+import hudson.RestrictedSince;
 import hudson.model.AdministrativeMonitor;
+import org.kohsuke.accmod.Restricted;
+import org.kohsuke.accmod.restrictions.NoExternalUse;
 import org.kohsuke.stapler.HttpResponse;
 import org.kohsuke.stapler.HttpResponses;
 import org.kohsuke.stapler.QueryParameter;
@@ -33,6 +36,7 @@ public class MasterKillSwitchWarning extends AdministrativeMonitor {
         return Messages.MasterKillSwitchWarning_DisplayName();
     }
 
+    @RestrictedSince("since TODO 2.4x") @Restricted(NoExternalUse.class) // For Stapler only
     public HttpResponse doAct(@QueryParameter String dismiss) throws IOException {
         if(dismiss!=null) {
             disable(true);

@@ -27,6 +27,7 @@ import com.thoughtworks.xstream.XStream;
 import hudson.BulkChange;
 import hudson.Extension;
 import hudson.FilePath;
+import hudson.RestrictedSince;
 import hudson.Util;
 import hudson.XmlFile;
 import hudson.model.*;
@@ -301,6 +302,7 @@ public class LogRecorder extends AbstractModelObject implements Saveable {
     }
 
     @RequirePOST
+    @RestrictedSince("since TODO 2.4x") @Restricted(NoExternalUse.class) // For Stapler only
     public HttpResponse doClear() throws IOException {
         handler.clear();
         return HttpResponses.redirectToDot();
@@ -344,6 +346,7 @@ public class LogRecorder extends AbstractModelObject implements Saveable {
     /**
      * RSS feed for log entries.
      */
+    @RestrictedSince("since TODO 2.4x") @Restricted(NoExternalUse.class) // For Stapler only
     public void doRss( StaplerRequest req, StaplerResponse rsp ) throws IOException, ServletException {
         LogRecorderManager.doRss(req,rsp,getLogRecords());
     }

@@ -25,6 +25,8 @@
 package hudson.search;
 
 import static javax.servlet.http.HttpServletResponse.SC_NOT_FOUND;
+
+import hudson.RestrictedSince;
 import hudson.Util;
 import hudson.util.EditDistance;
 
@@ -40,6 +42,8 @@ import java.util.logging.Logger;
 
 import javax.servlet.ServletException;
 
+import org.kohsuke.accmod.Restricted;
+import org.kohsuke.accmod.restrictions.NoExternalUse;
 import org.kohsuke.stapler.Ancestor;
 import org.kohsuke.stapler.QueryParameter;
 import org.kohsuke.stapler.StaplerRequest;
@@ -60,6 +64,7 @@ import org.kohsuke.stapler.export.Flavor;
  * @see SearchableModelObject
  */
 public class Search {
+    @RestrictedSince("since TODO 2.4x") @Restricted(NoExternalUse.class) // For Stapler only
     public void doIndex(StaplerRequest req, StaplerResponse rsp) throws IOException, ServletException {
         List<Ancestor> l = req.getAncestors();
         for( int i=l.size()-1; i>=0; i-- ) {
@@ -97,6 +102,7 @@ public class Search {
      *
      * See http://developer.mozilla.org/en/docs/Supporting_search_suggestions_in_search_plugins
      */
+    @RestrictedSince("since TODO 2.4x") @Restricted(NoExternalUse.class) // For Stapler only
     public void doSuggestOpenSearch(StaplerRequest req, StaplerResponse rsp, @QueryParameter String q) throws IOException, ServletException {
         rsp.setContentType(Flavor.JSON.contentType);
         DataWriter w = Flavor.JSON.createDataWriter(null, rsp);
@@ -113,6 +119,7 @@ public class Search {
     /**
      * Used by search box auto-completion. Returns JSON array.
      */
+    @RestrictedSince("since TODO 2.4x") @Restricted(NoExternalUse.class) // For Stapler only
     public void doSuggest(StaplerRequest req, StaplerResponse rsp, @QueryParameter String query) throws IOException, ServletException {
         Result r = new Result();
         for (SuggestedItem item : getSuggestions(req, query))

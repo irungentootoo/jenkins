@@ -26,6 +26,7 @@ package hudson.os.solaris;
 import com.sun.akuma.Daemon;
 import com.sun.akuma.JavaVMArguments;
 import hudson.Launcher.LocalLauncher;
+import hudson.RestrictedSince;
 import hudson.Util;
 import hudson.Extension;
 import jenkins.util.SystemProperties;
@@ -47,6 +48,8 @@ import org.jvnet.solaris.libzfs.ZFSException;
 import org.jvnet.solaris.libzfs.ZFSFileSystem;
 import org.jvnet.solaris.libzfs.ErrorCode;
 import org.jvnet.solaris.mount.MountFlags;
+import org.kohsuke.accmod.Restricted;
+import org.kohsuke.accmod.restrictions.NoExternalUse;
 import org.kohsuke.stapler.StaplerRequest;
 import org.kohsuke.stapler.StaplerResponse;
 import org.kohsuke.stapler.QueryParameter;
@@ -130,6 +133,7 @@ public class ZFSInstaller extends AdministrativeMonitor implements Serializable 
      * Called from the management screen.
      */
     @RequirePOST
+    @RestrictedSince("since TODO 2.4x") @Restricted(NoExternalUse.class) // For Stapler only
     public HttpResponse doAct(StaplerRequest req) throws ServletException, IOException {
         Jenkins.getInstance().checkPermission(Jenkins.ADMINISTER);
 
@@ -218,6 +222,7 @@ public class ZFSInstaller extends AdministrativeMonitor implements Serializable 
      * Called from the confirmation screen to actually initiate the migration.
      */
     @RequirePOST
+    @RestrictedSince("since TODO 2.4x") @Restricted(NoExternalUse.class) // For Stapler only
     public void doStart(StaplerRequest req, StaplerResponse rsp, @QueryParameter String username, @QueryParameter String password) throws ServletException, IOException {
         Jenkins hudson = Jenkins.getInstance();
         hudson.checkPermission(Jenkins.ADMINISTER);

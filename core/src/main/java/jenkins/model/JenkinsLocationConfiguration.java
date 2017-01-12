@@ -1,11 +1,14 @@
 package jenkins.model;
 
 import hudson.Extension;
+import hudson.RestrictedSince;
 import hudson.Util;
 import hudson.XmlFile;
 import hudson.util.FormValidation;
 import hudson.util.XStream2;
 import org.jenkinsci.Symbol;
+import org.kohsuke.accmod.Restricted;
+import org.kohsuke.accmod.restrictions.NoExternalUse;
 import org.kohsuke.stapler.QueryParameter;
 
 import javax.mail.internet.AddressException;
@@ -148,12 +151,14 @@ public class JenkinsLocationConfiguration extends GlobalConfiguration {
     /**
      * Checks the URL in <tt>global.jelly</tt>
      */
+    @RestrictedSince("since TODO 2.4x") @Restricted(NoExternalUse.class) // For Stapler only
     public FormValidation doCheckUrl(@QueryParameter String value) {
         if(value.startsWith("http://localhost"))
             return FormValidation.warning(Messages.Mailer_Localhost_Error());
         return FormValidation.ok();
     }
 
+    @RestrictedSince("since TODO 2.4x") @Restricted(NoExternalUse.class) // For Stapler only
     public FormValidation doCheckAdminAddress(@QueryParameter String value) {
         try {
             new InternetAddress(value);

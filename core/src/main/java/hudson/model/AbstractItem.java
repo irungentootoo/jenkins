@@ -26,6 +26,7 @@ package hudson.model;
 
 import com.infradna.tool.bridge_method_injector.WithBridgeMethods;
 import hudson.AbortException;
+import hudson.RestrictedSince;
 import hudson.XmlFile;
 import hudson.Util;
 import hudson.Functions;
@@ -548,6 +549,7 @@ public abstract class AbstractItem extends Actionable implements Item, HttpDelet
      * which should now be unused by core but is left in case plugins are still using it.
      */
     @RequirePOST
+    @RestrictedSince("since TODO 2.4x") @Restricted(NoExternalUse.class) // For Stapler only
     public void doDoDelete( StaplerRequest req, StaplerResponse rsp ) throws IOException, ServletException, InterruptedException {
         delete();
         if (req == null || rsp == null) { // CLI
@@ -606,6 +608,7 @@ public abstract class AbstractItem extends Actionable implements Item, HttpDelet
      * Accepts <tt>config.xml</tt> submission, as well as serve it.
      */
     @WebMethod(name = "config.xml")
+    @RestrictedSince("since TODO 2.4x") @Restricted(NoExternalUse.class) // For Stapler only
     public void doConfigDotXml(StaplerRequest req, StaplerResponse rsp)
             throws IOException {
         if (req.getMethod().equals("GET")) {
@@ -714,6 +717,7 @@ public abstract class AbstractItem extends Actionable implements Item, HttpDelet
      * @since 1.556
      */
     @RequirePOST
+    @RestrictedSince("since TODO 2.4x") @Restricted(NoExternalUse.class) // For Stapler only
     public void doReload() throws IOException {
         checkPermission(CONFIGURE);
 

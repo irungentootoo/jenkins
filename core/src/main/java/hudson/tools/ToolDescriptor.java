@@ -25,6 +25,7 @@
 package hudson.tools;
 
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
+import hudson.RestrictedSince;
 import hudson.model.Descriptor;
 import hudson.util.DescribableList;
 import hudson.util.FormValidation;
@@ -41,6 +42,8 @@ import jenkins.model.Jenkins;
 import jenkins.tools.ToolConfigurationCategory;
 import net.sf.json.JSONObject;
 import org.jvnet.tiger_types.Types;
+import org.kohsuke.accmod.Restricted;
+import org.kohsuke.accmod.restrictions.NoExternalUse;
 import org.kohsuke.stapler.QueryParameter;
 import org.kohsuke.stapler.StaplerRequest;
 
@@ -145,6 +148,7 @@ public abstract class ToolDescriptor<T extends ToolInstallation> extends Descrip
      * Checks if the home directory is valid.
      * @since 1.563
      */
+    @RestrictedSince("since TODO 2.4x") @Restricted(NoExternalUse.class) // For Stapler only
     public FormValidation doCheckHome(@QueryParameter File value) {
         // this can be used to check the existence of a file on the server, so needs to be protected
         Jenkins.getInstance().checkPermission(Jenkins.ADMINISTER);
@@ -174,6 +178,7 @@ public abstract class ToolDescriptor<T extends ToolInstallation> extends Descrip
      * Checks if the tool name is valid.
      * @since 1.563
      */
+    @RestrictedSince("since TODO 2.4x") @Restricted(NoExternalUse.class) // For Stapler only
     public FormValidation doCheckName(@QueryParameter String value) {
         return FormValidation.validateRequired(value);
     }

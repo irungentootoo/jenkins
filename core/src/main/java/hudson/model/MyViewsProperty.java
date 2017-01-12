@@ -24,6 +24,7 @@
 package hudson.model;
 
 import hudson.Extension;
+import hudson.RestrictedSince;
 import hudson.Util;
 import hudson.model.Descriptor.FormException;
 import hudson.security.ACL;
@@ -46,6 +47,8 @@ import net.sf.json.JSONObject;
 
 import org.acegisecurity.AccessDeniedException;
 import org.jenkinsci.Symbol;
+import org.kohsuke.accmod.Restricted;
+import org.kohsuke.accmod.restrictions.NoExternalUse;
 import org.kohsuke.stapler.DataBoundConstructor;
 import org.kohsuke.stapler.HttpRedirect;
 import org.kohsuke.stapler.HttpResponse;
@@ -148,6 +151,7 @@ public class MyViewsProperty extends UserProperty implements ModifiableViewGroup
         return viewGroupMixIn.getPrimaryView();
     }
 
+    @RestrictedSince("since TODO 2.4x") @Restricted(NoExternalUse.class) // For Stapler only
     public HttpResponse doIndex() {
         return new HttpRedirect("view/" + Util.rawEncode(getPrimaryView().getViewName()) + "/");
     }
@@ -163,6 +167,7 @@ public class MyViewsProperty extends UserProperty implements ModifiableViewGroup
      * An error is returned if exists==true but the view does not exist.
      * An error is also returned if exists==false but the view does exist.
      **/
+    @RestrictedSince("since TODO 2.4x") @Restricted(NoExternalUse.class) // For Stapler only
     public FormValidation doViewExistsCheck(@QueryParameter String value, @QueryParameter boolean exists) {
         checkPermission(View.CREATE);
 

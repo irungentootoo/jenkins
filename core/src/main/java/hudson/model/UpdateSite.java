@@ -29,6 +29,7 @@ import hudson.ClassicPluginStrategy;
 import hudson.ExtensionList;
 import hudson.PluginManager;
 import hudson.PluginWrapper;
+import hudson.RestrictedSince;
 import hudson.Util;
 import hudson.lifecycle.Lifecycle;
 import hudson.model.UpdateCenter.UpdateCenterJob;
@@ -193,6 +194,7 @@ public class UpdateSite {
     /**
      * This is the endpoint that receives the update center data file from the browser.
      */
+    @RestrictedSince("since TODO 2.4x") @Restricted(NoExternalUse.class) // For Stapler only
     public FormValidation doPostBack(StaplerRequest req) throws IOException, GeneralSecurityException {
         DownloadSettings.checkPostBackAccess();
         return updateData(IOUtils.toString(req.getInputStream(),"UTF-8"), true);
@@ -228,6 +230,7 @@ public class UpdateSite {
         return FormValidation.ok();
     }
 
+    @RestrictedSince("since TODO 2.4x") @Restricted(NoExternalUse.class) // For Stapler only
     public FormValidation doVerifySignature() throws IOException {
         return verifySignature(getJSONObject());
     }
@@ -305,6 +308,7 @@ public class UpdateSite {
      * @since 1.432
      */
     @RequirePOST
+    @RestrictedSince("since TODO 2.4x") @Restricted(NoExternalUse.class) // For Stapler only
     public HttpResponse doInvalidateData() {
         Jenkins.getInstance().checkPermission(Jenkins.ADMINISTER);
         dataTimestamp = 0;
@@ -1254,12 +1258,14 @@ public class UpdateSite {
          * Making the installation web bound.
          */
         @RequirePOST
+        @RestrictedSince("since TODO 2.4x") @Restricted(NoExternalUse.class) // For Stapler only
         public HttpResponse doInstall() throws IOException {
             deploy(false);
             return HttpResponses.redirectTo("../..");
         }
 
         @RequirePOST
+        @RestrictedSince("since TODO 2.4x") @Restricted(NoExternalUse.class) // For Stapler only
         public HttpResponse doInstallNow() throws IOException {
             deploy(true);
             return HttpResponses.redirectTo("../..");
@@ -1269,6 +1275,7 @@ public class UpdateSite {
          * Performs the downgrade of the plugin.
          */
         @RequirePOST
+        @RestrictedSince("since TODO 2.4x") @Restricted(NoExternalUse.class) // For Stapler only
         public HttpResponse doDowngrade() throws IOException {
             deployBackup();
             return HttpResponses.redirectTo("../..");

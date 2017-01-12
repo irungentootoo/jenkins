@@ -25,6 +25,7 @@ package hudson.logging;
 
 import hudson.FeedAdapter;
 import hudson.Functions;
+import hudson.RestrictedSince;
 import hudson.init.Initializer;
 import static hudson.init.InitMilestone.PLUGINS_PREPARED;
 import hudson.model.AbstractModelObject;
@@ -35,6 +36,8 @@ import jenkins.model.JenkinsLocationConfiguration;
 import jenkins.model.ModelObjectWithChildren;
 import jenkins.model.ModelObjectWithContextMenu.ContextMenu;
 import org.apache.commons.io.filefilter.WildcardFileFilter;
+import org.kohsuke.accmod.Restricted;
+import org.kohsuke.accmod.restrictions.NoExternalUse;
 import org.kohsuke.stapler.QueryParameter;
 import org.kohsuke.stapler.StaplerRequest;
 import org.kohsuke.stapler.StaplerResponse;
@@ -108,6 +111,7 @@ public class LogRecorderManager extends AbstractModelObject implements ModelObje
      * Creates a new log recorder.
      */
     @RequirePOST
+    @RestrictedSince("since TODO 2.4x") @Restricted(NoExternalUse.class) // For Stapler only
     public HttpResponse doNewLogRecorder(@QueryParameter String name) {
         Jenkins.checkGoodName(name);
         
@@ -117,6 +121,7 @@ public class LogRecorderManager extends AbstractModelObject implements ModelObje
         return new HttpRedirect(name+"/configure");
     }
 
+    @RestrictedSince("since TODO 2.4x") @Restricted(NoExternalUse.class) // For Stapler only
     public ContextMenu doChildrenContextMenu(StaplerRequest request, StaplerResponse response) throws Exception {
         ContextMenu menu = new ContextMenu();
         menu.add("all","All Jenkins Logs");
@@ -130,6 +135,7 @@ public class LogRecorderManager extends AbstractModelObject implements ModelObje
      * Configure the logging level.
      */
     @edu.umd.cs.findbugs.annotations.SuppressFBWarnings("LG_LOST_LOGGER_DUE_TO_WEAK_REFERENCE")
+    @RestrictedSince("since TODO 2.4x") @Restricted(NoExternalUse.class) // For Stapler only
     public HttpResponse doConfigLogger(@QueryParameter String name, @QueryParameter String level) {
         Jenkins.getInstance().checkPermission(Jenkins.ADMINISTER);
         Level lv;
@@ -144,6 +150,7 @@ public class LogRecorderManager extends AbstractModelObject implements ModelObje
     /**
      * RSS feed for log entries.
      */
+    @RestrictedSince("since TODO 2.4x") @Restricted(NoExternalUse.class) // For Stapler only
     public void doRss( StaplerRequest req, StaplerResponse rsp ) throws IOException, ServletException {
         doRss(req, rsp, Jenkins.logRecords);
     }

@@ -26,12 +26,16 @@ package hudson.slaves;
 import antlr.ANTLRException;
 import hudson.Extension;
 import static hudson.Util.fixNull;
+
+import hudson.RestrictedSince;
 import hudson.model.Computer;
 import hudson.model.Descriptor;
 import hudson.model.Queue;
 import hudson.scheduler.CronTabList;
 import hudson.util.FormValidation;
 import org.jenkinsci.Symbol;
+import org.kohsuke.accmod.Restricted;
+import org.kohsuke.accmod.restrictions.NoExternalUse;
 import org.kohsuke.stapler.DataBoundConstructor;
 import org.kohsuke.stapler.QueryParameter;
 
@@ -252,6 +256,7 @@ public class SimpleScheduledRetentionStrategy extends RetentionStrategy<SlaveCom
         /**
          * Performs syntax check.
          */
+        @RestrictedSince("since TODO 2.4x") @Restricted(NoExternalUse.class) // For Stapler only
         public FormValidation doCheck(@QueryParameter String value) {
             try {
                 String msg = CronTabList.create(fixNull(value)).checkSanity();

@@ -1289,6 +1289,7 @@ public abstract class PluginManager extends AbstractModelObject implements OnMas
         return hudson.util.HttpResponses.okJSON(response);
     }
 
+    @RestrictedSince("since TODO 2.4x") @Restricted(NoExternalUse.class) // For Stapler only
     public HttpResponse doUpdateSources(StaplerRequest req) throws IOException {
         Jenkins.getInstance().checkPermission(CONFIGURE_UPDATECENTER);
 
@@ -1323,6 +1324,7 @@ public abstract class PluginManager extends AbstractModelObject implements OnMas
     /**
      * Performs the installation of the plugins.
      */
+    @RestrictedSince("since TODO 2.4x") @Restricted(NoExternalUse.class) // For Stapler only
     public void doInstall(StaplerRequest req, StaplerResponse rsp) throws IOException, ServletException {
         Jenkins.getInstance().checkPermission(Jenkins.ADMINISTER);
         Set<String> plugins = new LinkedHashSet<>();
@@ -1514,6 +1516,7 @@ public abstract class PluginManager extends AbstractModelObject implements OnMas
      * Bare-minimum configuration mechanism to change the update center.
      */
     @RequirePOST
+    @RestrictedSince("since TODO 2.4x") @Restricted(NoExternalUse.class) // For Stapler only
     public HttpResponse doSiteConfigure(@QueryParameter String site) throws IOException {
         Jenkins hudson = Jenkins.getInstance();
         hudson.checkPermission(CONFIGURE_UPDATECENTER);
@@ -1529,6 +1532,7 @@ public abstract class PluginManager extends AbstractModelObject implements OnMas
     }
 
     @RequirePOST
+    @RestrictedSince("since TODO 2.4x") @Restricted(NoExternalUse.class) // For Stapler only
     public HttpResponse doProxyConfigure(StaplerRequest req) throws IOException, ServletException {
         Jenkins jenkins = Jenkins.getInstance();
         jenkins.checkPermission(CONFIGURE_UPDATECENTER);
@@ -1548,6 +1552,7 @@ public abstract class PluginManager extends AbstractModelObject implements OnMas
      * Uploads a plugin.
      */
     @RequirePOST
+    @RestrictedSince("since TODO 2.4x") @Restricted(NoExternalUse.class) // For Stapler only
     public HttpResponse doUploadPlugin(StaplerRequest req) throws IOException, ServletException {
         try {
             Jenkins.getInstance().checkPermission(UPLOAD_PLUGINS);
@@ -1730,6 +1735,7 @@ public abstract class PluginManager extends AbstractModelObject implements OnMas
      * @since 1.483
      */
     @RequirePOST
+    @RestrictedSince("since TODO 2.4x") @Restricted(NoExternalUse.class) // For Stapler only
     public JSONArray doPrevalidateConfig(StaplerRequest req) throws IOException {
         Jenkins.getInstance().checkPermission(Jenkins.ADMINISTER);
 
@@ -1754,6 +1760,7 @@ public abstract class PluginManager extends AbstractModelObject implements OnMas
      * Runs {@link #prevalidateConfig} on posted XML and redirects to the {@link UpdateCenter}.
      * @since 1.483
      */
+    @RestrictedSince("since TODO 2.4x") @Restricted(NoExternalUse.class) // For Stapler only
     @RequirePOST
     public HttpResponse doInstallNecessaryPlugins(StaplerRequest req) throws IOException {
         prevalidateConfig(req.getInputStream());

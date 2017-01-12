@@ -23,7 +23,10 @@
  */
 package hudson.model;
 
+import hudson.RestrictedSince;
 import hudson.console.AnnotatedLargeText;
+import org.kohsuke.accmod.Restricted;
+import org.kohsuke.accmod.restrictions.NoExternalUse;
 import org.kohsuke.stapler.framework.io.LargeText;
 import org.kohsuke.stapler.StaplerRequest;
 import org.kohsuke.stapler.StaplerResponse;
@@ -113,6 +116,7 @@ public abstract class TaskAction extends AbstractModelObject implements Action {
     /**
      * Handles incremental log output.
      */
+    @RestrictedSince("since TODO 2.4x") @Restricted(NoExternalUse.class) // For Stapler only
     public void doProgressiveLog( StaplerRequest req, StaplerResponse rsp) throws IOException {
         AnnotatedLargeText text = obtainLog();
         if(text!=null) {
@@ -125,6 +129,7 @@ public abstract class TaskAction extends AbstractModelObject implements Action {
     /**
      * Handles incremental log output.
      */
+    @RestrictedSince("since TODO 2.4x") @Restricted(NoExternalUse.class) // For Stapler only
     public void doProgressiveHtml( StaplerRequest req, StaplerResponse rsp) throws IOException {
         AnnotatedLargeText text = obtainLog();
         if(text!=null) {

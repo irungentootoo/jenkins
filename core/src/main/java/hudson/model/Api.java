@@ -24,6 +24,7 @@
 package hudson.model;
 
 import hudson.ExtensionList;
+import hudson.RestrictedSince;
 import jenkins.util.xml.FilteredFunctionContext;
 import jenkins.model.Jenkins;
 import jenkins.security.SecureRequester;
@@ -36,6 +37,8 @@ import org.dom4j.Element;
 import org.dom4j.XPath;
 import org.dom4j.io.SAXReader;
 import org.dom4j.io.XMLWriter;
+import org.kohsuke.accmod.Restricted;
+import org.kohsuke.accmod.restrictions.NoExternalUse;
 import org.kohsuke.stapler.QueryParameter;
 import org.kohsuke.stapler.StaplerRequest;
 import org.kohsuke.stapler.StaplerResponse;
@@ -86,6 +89,7 @@ public class Api extends AbstractModelObject {
     /**
      * Exposes the bean as XML.
      */
+    @RestrictedSince("since TODO 2.4x") @Restricted(NoExternalUse.class) // For Stapler only
     public void doXml(StaplerRequest req, StaplerResponse rsp,
                       @QueryParameter String xpath,
                       @QueryParameter String wrapper,
@@ -191,6 +195,7 @@ public class Api extends AbstractModelObject {
     /**
      * Generate schema.
      */
+    @RestrictedSince("since TODO 2.4x") @Restricted(NoExternalUse.class) // For Stapler only
     public void doSchema(StaplerRequest req, StaplerResponse rsp) throws IOException, ServletException {
         setHeaders(rsp);
         rsp.setContentType("application/xml");
@@ -202,6 +207,7 @@ public class Api extends AbstractModelObject {
     /**
      * Exposes the bean as JSON.
      */
+    @RestrictedSince("since TODO 2.4x") @Restricted(NoExternalUse.class) // For Stapler only
     public void doJson(StaplerRequest req, StaplerResponse rsp) throws IOException, ServletException {
         if (req.getParameter("jsonp") == null || permit(req)) {
             setHeaders(rsp);
@@ -214,6 +220,7 @@ public class Api extends AbstractModelObject {
     /**
      * Exposes the bean as Python literal.
      */
+    @RestrictedSince("since TODO 2.4x") @Restricted(NoExternalUse.class) // For Stapler only
     public void doPython(StaplerRequest req, StaplerResponse rsp) throws IOException, ServletException {
         setHeaders(rsp);
         rsp.serveExposedBean(req,bean, Flavor.PYTHON);

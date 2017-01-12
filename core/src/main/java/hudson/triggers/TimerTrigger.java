@@ -27,6 +27,8 @@ package hudson.triggers;
 import antlr.ANTLRException;
 import hudson.Extension;
 import static hudson.Util.fixNull;
+
+import hudson.RestrictedSince;
 import hudson.model.BuildableItem;
 import hudson.model.Cause;
 import hudson.model.Item;
@@ -39,6 +41,8 @@ import java.util.Calendar;
 import java.util.Collection;
 
 import org.jenkinsci.Symbol;
+import org.kohsuke.accmod.Restricted;
+import org.kohsuke.accmod.restrictions.NoExternalUse;
 import org.kohsuke.stapler.AncestorInPath;
 import org.kohsuke.stapler.DataBoundConstructor;
 import org.kohsuke.stapler.QueryParameter;
@@ -77,6 +81,7 @@ public class TimerTrigger extends Trigger<BuildableItem> {
         }
 
         // backward compatibility
+        @RestrictedSince("since TODO 2.4x") @Restricted(NoExternalUse.class) // For Stapler only
         public FormValidation doCheck(@QueryParameter String value, @AncestorInPath Item item) {
             return doCheckSpec(value, item);
         }
@@ -84,6 +89,7 @@ public class TimerTrigger extends Trigger<BuildableItem> {
         /**
          * Performs syntax check.
          */
+        @RestrictedSince("since TODO 2.4x") @Restricted(NoExternalUse.class) // For Stapler only
         public FormValidation doCheckSpec(@QueryParameter String value, @AncestorInPath Item item) {
             try {
                 CronTabList ctl = CronTabList.create(fixNull(value), item != null ? Hash.from(item.getFullName()) : null);

@@ -24,10 +24,14 @@
 package hudson.tools;
 
 import hudson.FilePath;
+import hudson.RestrictedSince;
 import hudson.model.Node;
 import hudson.model.TaskListener;
 import hudson.util.FormValidation;
 import java.io.IOException;
+
+import org.kohsuke.accmod.Restricted;
+import org.kohsuke.accmod.restrictions.NoExternalUse;
 import org.kohsuke.stapler.QueryParameter;
 
 /**
@@ -87,6 +91,7 @@ public abstract class AbstractCommandInstaller extends ToolInstaller {
     public static abstract class Descriptor<TInstallerClass extends AbstractCommandInstaller>
             extends ToolInstallerDescriptor<TInstallerClass> {
 
+        @RestrictedSince("since TODO 2.4x") @Restricted(NoExternalUse.class) // For Stapler only
         public FormValidation doCheckCommand(@QueryParameter String value) {
             if (value.length() > 0) {
                 return FormValidation.ok();
@@ -95,6 +100,7 @@ public abstract class AbstractCommandInstaller extends ToolInstaller {
             }
         }
 
+        @RestrictedSince("since TODO 2.4x") @Restricted(NoExternalUse.class) // For Stapler only
         public FormValidation doCheckToolHome(@QueryParameter String value) {
             if (value.length() > 0) {
                 return FormValidation.ok();

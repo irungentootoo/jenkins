@@ -32,6 +32,7 @@ import hudson.Extension;
 import hudson.ExtensionPoint;
 import hudson.Functions;
 import hudson.Indenter;
+import hudson.RestrictedSince;
 import hudson.Util;
 import hudson.model.Descriptor.FormException;
 import hudson.model.labels.LabelAtomPropertyDescriptor;
@@ -1097,10 +1098,12 @@ public abstract class View extends AbstractModelObject implements AccessControll
         return categories;
     }
 
+    @RestrictedSince("since TODO 2.4x") @Restricted(NoExternalUse.class) // For Stapler only
     public void doRssAll( StaplerRequest req, StaplerResponse rsp ) throws IOException, ServletException {
         rss(req, rsp, " all builds", getBuilds());
     }
 
+    @RestrictedSince("since TODO 2.4x") @Restricted(NoExternalUse.class) // For Stapler only
     public void doRssFailed( StaplerRequest req, StaplerResponse rsp ) throws IOException, ServletException {
         rss(req, rsp, " failed builds", getBuilds().failureOnly());
     }
@@ -1118,6 +1121,7 @@ public abstract class View extends AbstractModelObject implements AccessControll
             runs.newBuilds(), Run.FEED_ADAPTER, req, rsp );
     }
 
+    @RestrictedSince("since TODO 2.4x") @Restricted(NoExternalUse.class) // For Stapler only
     public void doRssLatest( StaplerRequest req, StaplerResponse rsp ) throws IOException, ServletException {
         List<Run> lastBuilds = new ArrayList<Run>();
         for (TopLevelItem item : getItems()) {
@@ -1135,6 +1139,7 @@ public abstract class View extends AbstractModelObject implements AccessControll
      * Accepts <tt>config.xml</tt> submission, as well as serve it.
      */
     @WebMethod(name = "config.xml")
+    @RestrictedSince("since TODO 2.4x") @Restricted(NoExternalUse.class) // For Stapler only
     public HttpResponse doConfigDotXml(StaplerRequest req) throws IOException {
         if (req.getMethod().equals("GET")) {
             // read
@@ -1199,6 +1204,7 @@ public abstract class View extends AbstractModelObject implements AccessControll
         save();
     }
 
+    @RestrictedSince("since TODO 2.4x") @Restricted(NoExternalUse.class) // For Stapler only
     public ContextMenu doChildrenContextMenu(StaplerRequest request, StaplerResponse response) throws Exception {
         ContextMenu m = new ContextMenu();
         for (TopLevelItem i : getItems())

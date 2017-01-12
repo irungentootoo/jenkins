@@ -24,6 +24,7 @@
 package hudson.markup;
 
 import hudson.ExtensionPoint;
+import hudson.RestrictedSince;
 import hudson.model.AbstractDescribableImpl;
 import hudson.util.HttpResponses;
 import java.io.IOException;
@@ -31,6 +32,9 @@ import java.io.StringWriter;
 import java.io.Writer;
 import javax.annotation.CheckForNull;
 import javax.annotation.Nonnull;
+
+import org.kohsuke.accmod.Restricted;
+import org.kohsuke.accmod.restrictions.NoExternalUse;
 import org.kohsuke.stapler.HttpResponse;
 import org.kohsuke.stapler.QueryParameter;
 
@@ -100,6 +104,7 @@ public abstract class MarkupFormatter extends AbstractDescribableImpl<MarkupForm
      * Generate HTML for preview, using markup formatter.
      * Can be called from other views.
      */
+    @RestrictedSince("since TODO 2.4x") @Restricted(NoExternalUse.class) // For Stapler only
     public HttpResponse doPreviewDescription(@QueryParameter String text) throws IOException {
         StringWriter w = new StringWriter();
         translate(text, w);

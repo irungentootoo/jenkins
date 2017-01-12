@@ -29,6 +29,7 @@ import hudson.EnvVars;
 import hudson.Extension;
 import hudson.ExtensionPoint;
 import hudson.PermalinkList;
+import hudson.RestrictedSince;
 import hudson.Util;
 import hudson.cli.declarative.CLIResolver;
 import hudson.model.Descriptor.FormException;
@@ -1057,6 +1058,7 @@ public abstract class Job<JobT extends Job<JobT, RunT>, RunT extends Run<JobT, R
         return permalinks;
     }
     
+    @RestrictedSince("since TODO 2.4x") @Restricted(NoExternalUse.class) // For Stapler only
     @Override public ContextMenu doChildrenContextMenu(StaplerRequest request, StaplerResponse response) throws Exception {
         // not sure what would be really useful here. This needs more thoughts.
         // for the time being, I'm starting with permalinks
@@ -1291,6 +1293,7 @@ public abstract class Job<JobT extends Job<JobT, RunT>, RunT extends Run<JobT, R
     /**
      * Accepts and serves the job description
      */
+    @RestrictedSince("since TODO 2.4x") @Restricted(NoExternalUse.class) // For Stapler only
     public void doDescription(StaplerRequest req, StaplerResponse rsp)
             throws IOException {
         if (req.getMethod().equals("GET")) {
@@ -1317,6 +1320,7 @@ public abstract class Job<JobT extends Job<JobT, RunT>, RunT extends Run<JobT, R
     /**
      * Returns the image that shows the current buildCommand status.
      */
+    @RestrictedSince("since TODO 2.4x") @Restricted(NoExternalUse.class) // For Stapler only
     public void doBuildStatus(StaplerRequest req, StaplerResponse rsp)
             throws IOException {
         rsp.sendRedirect2(req.getContextPath() + "/images/48x48/" + getBuildStatusUrl());
@@ -1505,11 +1509,13 @@ public abstract class Job<JobT extends Job<JobT, RunT>, RunT extends Run<JobT, R
         rsp.sendRedirect2("../" + newName);
     }
 
+    @RestrictedSince("since TODO 2.4x") @Restricted(NoExternalUse.class) // For Stapler only
     public void doRssAll(StaplerRequest req, StaplerResponse rsp)
             throws IOException, ServletException {
         rss(req, rsp, " all builds", getBuilds());
     }
 
+    @RestrictedSince("since TODO 2.4x") @Restricted(NoExternalUse.class) // For Stapler only
     public void doRssFailed(StaplerRequest req, StaplerResponse rsp)
             throws IOException, ServletException {
         rss(req, rsp, " failed builds", getBuilds().failureOnly());

@@ -27,6 +27,7 @@ package hudson.triggers;
 import antlr.ANTLRException;
 import com.google.common.base.Preconditions;
 import hudson.Extension;
+import hudson.RestrictedSince;
 import hudson.Util;
 import hudson.console.AnnotatedLargeText;
 import hudson.model.AbstractBuild;
@@ -352,6 +353,7 @@ public class SCMTrigger extends Trigger<Item> {
             return true;
         }
 
+        @RestrictedSince("since TODO 2.4x") @Restricted(NoExternalUse.class) // For Stapler only
         public FormValidation doCheckPollingThreadCount(@QueryParameter String value) {
             if (value != null && "".equals(value.trim()))
                 return FormValidation.ok();
@@ -427,6 +429,7 @@ public class SCMTrigger extends Trigger<Item> {
         /**
          * Sends out the raw polling log output.
          */
+        @RestrictedSince("since TODO 2.4x") @Restricted(NoExternalUse.class) // For Stapler only
         public void doPollingLog(StaplerRequest req, StaplerResponse rsp) throws IOException {
             rsp.setContentType("text/plain;charset=UTF-8");
             // Prevent jelly from flushing stream so Content-Length header can be added afterwards

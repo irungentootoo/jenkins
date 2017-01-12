@@ -29,6 +29,7 @@ import hudson.DescriptorExtensionList;
 import hudson.FilePath;
 import hudson.Launcher;
 import hudson.Launcher.RemoteLauncher;
+import hudson.RestrictedSince;
 import hudson.Util;
 import hudson.model.Descriptor.FormException;
 import hudson.remoting.Callable;
@@ -355,6 +356,7 @@ public abstract class Slave extends Node implements Serializable {
             this.fileName = fileName;
         }
 
+        @RestrictedSince("since TODO 2.4x") @Restricted(NoExternalUse.class) // For Stapler only
         public void doIndex( StaplerRequest req, StaplerResponse rsp) throws IOException, ServletException {
             URLConnection con = connect();
             // since we end up redirecting users to jnlpJars/foo.jar/, set the content disposition
@@ -467,6 +469,7 @@ public abstract class Slave extends Node implements Serializable {
     }
 
     public static abstract class SlaveDescriptor extends NodeDescriptor {
+        @RestrictedSince("since TODO 2.4x") @Restricted(NoExternalUse.class) // For Stapler only
         public FormValidation doCheckNumExecutors(@QueryParameter String value) {
             return FormValidation.validatePositiveInteger(value);
         }
@@ -474,6 +477,7 @@ public abstract class Slave extends Node implements Serializable {
         /**
          * Performs syntactical check on the remote FS for agents.
          */
+        @RestrictedSince("since TODO 2.4x") @Restricted(NoExternalUse.class) // For Stapler only
         public FormValidation doCheckRemoteFS(@QueryParameter String value) throws IOException, ServletException {
             if(Util.fixEmptyAndTrim(value)==null)
                 return FormValidation.error(Messages.Slave_Remote_Director_Mandatory());

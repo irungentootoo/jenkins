@@ -1,6 +1,7 @@
 package jenkins.model;
 
 import hudson.Functions;
+import hudson.RestrictedSince;
 import hudson.Util;
 import hudson.model.Action;
 import hudson.model.Actionable;
@@ -14,6 +15,8 @@ import org.apache.commons.jelly.JellyException;
 import org.apache.commons.jelly.JellyTagException;
 import org.apache.commons.jelly.Script;
 import org.apache.commons.jelly.XMLOutput;
+import org.kohsuke.accmod.Restricted;
+import org.kohsuke.accmod.restrictions.NoExternalUse;
 import org.kohsuke.stapler.HttpResponse;
 import org.kohsuke.stapler.Stapler;
 import org.kohsuke.stapler.StaplerRequest;
@@ -53,6 +56,7 @@ public interface ModelObjectWithContextMenu extends ModelObject {
      * which implements the default behaviour. See {@link ContextMenu#from(ModelObjectWithContextMenu, StaplerRequest, StaplerResponse)}
      * for more details of what it does. This should suit most implementations.
      */
+    @RestrictedSince("since TODO 2.4x") @Restricted(NoExternalUse.class) // For Stapler only
     public ContextMenu doContextMenu(StaplerRequest request, StaplerResponse response) throws Exception;
 
     /**

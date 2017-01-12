@@ -23,10 +23,13 @@
  */
 package hudson.model;
 
+import hudson.RestrictedSince;
 import jenkins.model.Jenkins;
 import net.sf.json.JSONObject;
 
 import org.jenkinsci.Symbol;
+import org.kohsuke.accmod.Restricted;
+import org.kohsuke.accmod.restrictions.NoExternalUse;
 import org.kohsuke.stapler.DataBoundConstructor;
 import org.kohsuke.stapler.StaplerRequest;
 import org.kohsuke.stapler.export.Exported;
@@ -151,6 +154,7 @@ public class RunParameterDefinition extends SimpleParameterDefinition {
             return req.bindJSON(RunParameterDefinition.class, formData);
         }
         
+        @RestrictedSince("since TODO 2.4x") @Restricted(NoExternalUse.class) // For Stapler only
         public AutoCompletionCandidates doAutoCompleteProjectName(@QueryParameter String value) {
             return AutoCompletionCandidates.ofJobNames(Job.class, value, null, Jenkins.getInstance());
         }

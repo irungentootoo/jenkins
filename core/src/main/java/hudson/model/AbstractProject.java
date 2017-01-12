@@ -38,6 +38,7 @@ import hudson.FeedAdapter;
 import hudson.FilePath;
 import hudson.Functions;
 import hudson.Launcher;
+import hudson.RestrictedSince;
 import hudson.Util;
 import hudson.cli.declarative.CLIMethod;
 import hudson.cli.declarative.CLIResolver;
@@ -1755,12 +1756,14 @@ public abstract class AbstractProject<P extends AbstractProject<P,R>,R extends A
     /**
      * Schedules a new build command.
      */
+    @RestrictedSince("since TODO 2.4x") @Restricted(NoExternalUse.class) // For Stapler only
     public void doBuild( StaplerRequest req, StaplerResponse rsp, @QueryParameter TimeDuration delay ) throws IOException, ServletException {
         getParameterizedJobMixIn().doBuild(req, rsp, delay);
     }
 
     /** @deprecated use {@link #doBuild(StaplerRequest, StaplerResponse, TimeDuration)} */
     @Deprecated
+    @RestrictedSince("since TODO 2.4x") @Restricted(NoExternalUse.class) // For Stapler only
     public void doBuild(StaplerRequest req, StaplerResponse rsp) throws IOException, ServletException {
         doBuild(req, rsp, TimeDuration.fromString(req.getParameter("delay")));
     }
@@ -1790,12 +1793,14 @@ public abstract class AbstractProject<P extends AbstractProject<P,R>,R extends A
      * Supports build trigger with parameters via an HTTP GET or POST.
      * Currently only String parameters are supported.
      */
+    @RestrictedSince("since TODO 2.4x") @Restricted(NoExternalUse.class) // For Stapler only
     public void doBuildWithParameters(StaplerRequest req, StaplerResponse rsp, @QueryParameter TimeDuration delay) throws IOException, ServletException {
         getParameterizedJobMixIn().doBuildWithParameters(req, rsp, delay);
     }
 
     /** @deprecated use {@link #doBuildWithParameters(StaplerRequest, StaplerResponse, TimeDuration)} */
     @Deprecated
+    @RestrictedSince("since TODO 2.4x") @Restricted(NoExternalUse.class) // For Stapler only
     public void doBuildWithParameters(StaplerRequest req, StaplerResponse rsp) throws IOException, ServletException {
         doBuildWithParameters(req, rsp, TimeDuration.fromString(req.getParameter("delay")));
     }
@@ -1803,6 +1808,7 @@ public abstract class AbstractProject<P extends AbstractProject<P,R>,R extends A
     /**
      * Schedules a new SCM polling command.
      */
+    @RestrictedSince("since TODO 2.4x") @Restricted(NoExternalUse.class) // For Stapler only
     public void doPolling( StaplerRequest req, StaplerResponse rsp ) throws IOException, ServletException {
         BuildAuthorizationToken.checkPermission((Job) this, authToken, req, rsp);
         schedulePolling();
@@ -1813,6 +1819,7 @@ public abstract class AbstractProject<P extends AbstractProject<P,R>,R extends A
      * Cancels a scheduled build.
      */
     @RequirePOST
+    @RestrictedSince("since TODO 2.4x") @Restricted(NoExternalUse.class) // For Stapler only
     public void doCancelQueue( StaplerRequest req, StaplerResponse rsp ) throws IOException, ServletException {
         getParameterizedJobMixIn().doCancelQueue(req, rsp);
     }
@@ -1911,6 +1918,7 @@ public abstract class AbstractProject<P extends AbstractProject<P,R>,R extends A
     /**
      * Serves the workspace files.
      */
+    @RestrictedSince("since TODO 2.4x") @Restricted(NoExternalUse.class) // For Stapler only
     public DirectoryBrowserSupport doWs( StaplerRequest req, StaplerResponse rsp ) throws IOException, ServletException, InterruptedException {
         checkPermission(Item.WORKSPACE);
         FilePath ws = getSomeWorkspace();
@@ -1938,6 +1946,7 @@ public abstract class AbstractProject<P extends AbstractProject<P,R>,R extends A
      * Wipes out the workspace.
      */
     @RequirePOST
+    @RestrictedSince("since TODO 2.4x") @Restricted(NoExternalUse.class) // For Stapler only
     public HttpResponse doDoWipeOutWorkspace() throws IOException, ServletException, InterruptedException {
         checkPermission(Functions.isWipeOutPermissionEnabled() ? WIPEOUT : BUILD);
         R b = getSomeBuildWithWorkspace();
@@ -1956,6 +1965,7 @@ public abstract class AbstractProject<P extends AbstractProject<P,R>,R extends A
 
     @CLIMethod(name="disable-job")
     @RequirePOST
+    @RestrictedSince("since TODO 2.4x") @Restricted(NoExternalUse.class) // For Stapler only
     public HttpResponse doDisable() throws IOException, ServletException {
         checkPermission(CONFIGURE);
         makeDisabled(true);
@@ -1964,6 +1974,7 @@ public abstract class AbstractProject<P extends AbstractProject<P,R>,R extends A
 
     @CLIMethod(name="enable-job")
     @RequirePOST
+    @RestrictedSince("since TODO 2.4x") @Restricted(NoExternalUse.class) // For Stapler only
     public HttpResponse doEnable() throws IOException, ServletException {
         checkPermission(CONFIGURE);
         makeDisabled(false);
@@ -1974,6 +1985,7 @@ public abstract class AbstractProject<P extends AbstractProject<P,R>,R extends A
     /**
      * RSS feed for changes in this project.
      */
+    @RestrictedSince("since TODO 2.4x") @Restricted(NoExternalUse.class) // For Stapler only
     public void doRssChangelog(  StaplerRequest req, StaplerResponse rsp  ) throws IOException, ServletException {
         class FeedItem {
             ChangeLogSet.Entry e;
@@ -2071,6 +2083,7 @@ public abstract class AbstractProject<P extends AbstractProject<P,R>,R extends A
           return doCheckLabel(project, value);
         }
 
+        @RestrictedSince("since TODO 2.4x") @Restricted(NoExternalUse.class) // For Stapler only
         public FormValidation doCheckLabel(@AncestorInPath AbstractProject<?,?> project,
                                            @QueryParameter String value) {
             return validateLabelExpression(value, project);
@@ -2116,6 +2129,7 @@ public abstract class AbstractProject<P extends AbstractProject<P,R>,R extends A
             );
         }
 
+        @RestrictedSince("since TODO 2.4x") @Restricted(NoExternalUse.class) // For Stapler only
         public FormValidation doCheckCustomWorkspace(@QueryParameter String customWorkspace){
         	if(Util.fixEmptyAndTrim(customWorkspace)==null)
         		return FormValidation.error(Messages.AbstractProject_CustomWorkspaceEmpty());
@@ -2123,6 +2137,7 @@ public abstract class AbstractProject<P extends AbstractProject<P,R>,R extends A
         		return FormValidation.ok();
         }
 
+        @RestrictedSince("since TODO 2.4x") @Restricted(NoExternalUse.class) // For Stapler only
         public AutoCompletionCandidates doAutoCompleteUpstreamProjects(@QueryParameter String value) {
             AutoCompletionCandidates candidates = new AutoCompletionCandidates();
             List<Job> jobs = Jenkins.getInstance().getItems(Job.class);
@@ -2144,6 +2159,7 @@ public abstract class AbstractProject<P extends AbstractProject<P,R>,R extends A
           return doAutoCompleteLabel(value);
         }
 
+        @RestrictedSince("since TODO 2.4x") @Restricted(NoExternalUse.class) // For Stapler only
         public AutoCompletionCandidates doAutoCompleteLabel(@QueryParameter String value) {
             AutoCompletionCandidates c = new AutoCompletionCandidates();
             Set<Label> labels = Jenkins.getInstance().getLabels();

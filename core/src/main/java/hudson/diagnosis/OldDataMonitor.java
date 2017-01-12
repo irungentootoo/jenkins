@@ -26,6 +26,7 @@ package hudson.diagnosis;
 import com.google.common.base.Predicate;
 import com.thoughtworks.xstream.converters.UnmarshallingContext;
 import hudson.Extension;
+import hudson.RestrictedSince;
 import hudson.XmlFile;
 import hudson.model.AdministrativeMonitor;
 import hudson.model.Item;
@@ -296,6 +297,7 @@ public class OldDataMonitor extends AdministrativeMonitor {
      * Depending on whether the user said "yes" or "no", send him to the right place.
      */
     @RequirePOST
+    @RestrictedSince("since TODO 2.4x") @Restricted(NoExternalUse.class) // For Stapler only
     public HttpResponse doAct(StaplerRequest req, StaplerResponse rsp) throws IOException {
         if (req.hasParameter("no")) {
             disable(true);
@@ -310,6 +312,7 @@ public class OldDataMonitor extends AdministrativeMonitor {
      * Remove those items from the data map.
      */
     @RequirePOST
+    @RestrictedSince("since TODO 2.4x") @Restricted(NoExternalUse.class) // For Stapler only
     public HttpResponse doUpgrade(StaplerRequest req, StaplerResponse rsp) {
         final String thruVerParam = req.getParameter("thruVer");
         final VersionNumber thruVer = thruVerParam.equals("all") ? null : new VersionNumber(thruVerParam);
@@ -330,6 +333,7 @@ public class OldDataMonitor extends AdministrativeMonitor {
      * Remove those items from the data map.
      */
     @RequirePOST
+    @RestrictedSince("since TODO 2.4x") @Restricted(NoExternalUse.class) // For Stapler only
     public HttpResponse doDiscard(StaplerRequest req, StaplerResponse rsp) {
         saveAndRemoveEntries( new Predicate<Map.Entry<SaveableReference,VersionRange>>() {
             @Override
@@ -371,6 +375,7 @@ public class OldDataMonitor extends AdministrativeMonitor {
         data.keySet().removeAll(removed);
     }
 
+    @RestrictedSince("since TODO 2.4x") @Restricted(NoExternalUse.class) // For Stapler only
     public HttpResponse doIndex(StaplerResponse rsp) throws IOException {
         return new HttpRedirect("manage");
     }

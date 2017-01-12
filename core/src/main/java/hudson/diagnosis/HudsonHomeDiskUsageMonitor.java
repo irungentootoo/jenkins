@@ -23,12 +23,15 @@
  */
 package hudson.diagnosis;
 
+import hudson.RestrictedSince;
 import hudson.model.AdministrativeMonitor;
 import hudson.model.AbstractModelObject;
 import hudson.Extension;
 import hudson.ExtensionPoint;
 import hudson.ExtensionList;
 import org.jenkinsci.Symbol;
+import org.kohsuke.accmod.Restricted;
+import org.kohsuke.accmod.restrictions.NoExternalUse;
 import org.kohsuke.stapler.HttpResponse;
 import org.kohsuke.stapler.HttpResponses;
 import org.kohsuke.stapler.QueryParameter;
@@ -64,6 +67,7 @@ public final class HudsonHomeDiskUsageMonitor extends AdministrativeMonitor {
     /**
      * Depending on whether the user said "yes" or "no", send him to the right place.
      */
+    @RestrictedSince("since TODO 2.4x") @Restricted(NoExternalUse.class) // For Stapler only
     public HttpResponse doAct(@QueryParameter String no) throws IOException {
         if(no!=null) {
             disable(true);

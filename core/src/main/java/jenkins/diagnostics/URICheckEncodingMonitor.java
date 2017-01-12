@@ -1,6 +1,7 @@
 package jenkins.diagnostics;
 
 import hudson.Extension;
+import hudson.RestrictedSince;
 import hudson.model.*;
 import hudson.util.FormValidation;
 import jenkins.model.Jenkins;
@@ -30,6 +31,7 @@ public class URICheckEncodingMonitor extends AdministrativeMonitor {
         return Messages.URICheckEncodingMonitor_DisplayName();
     }
 
+    @RestrictedSince("since TODO 2.4x") @Restricted(NoExternalUse.class) // For Stapler only
     public FormValidation doCheckURIEncoding(StaplerRequest request) throws IOException {
         Jenkins.getInstance().checkPermission(Jenkins.ADMINISTER);
         // expected is non-ASCII String

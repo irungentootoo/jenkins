@@ -32,6 +32,7 @@ import hudson.Extension;
 import hudson.ExtensionList;
 import hudson.ExtensionPoint;
 import hudson.FeedAdapter;
+import hudson.RestrictedSince;
 import hudson.Util;
 import hudson.XmlFile;
 import hudson.model.Descriptor.FormException;
@@ -776,6 +777,7 @@ public class User extends AbstractModelObject implements AccessControlled, Descr
      * Accepts submission from the configuration page.
      */
     @RequirePOST
+    @RestrictedSince("since TODO 2.4x") @Restricted(NoExternalUse.class) // For Stapler only
     public void doConfigSubmit( StaplerRequest req, StaplerResponse rsp ) throws IOException, ServletException, FormException {
         checkPermission(Jenkins.ADMINISTER);
 
@@ -817,6 +819,7 @@ public class User extends AbstractModelObject implements AccessControlled, Descr
      * Deletes this user from Hudson.
      */
     @RequirePOST
+    @RestrictedSince("since TODO 2.4x") @Restricted(NoExternalUse.class) // For Stapler only
     public void doDoDelete(StaplerRequest req, StaplerResponse rsp) throws IOException, ServletException {
         checkPermission(Jenkins.ADMINISTER);
         if (idStrategy().equals(id, Jenkins.getAuthentication().getName())) {
@@ -829,14 +832,17 @@ public class User extends AbstractModelObject implements AccessControlled, Descr
         rsp.sendRedirect2("../..");
     }
 
+    @RestrictedSince("since TODO 2.4x") @Restricted(NoExternalUse.class) // For Stapler only
     public void doRssAll(StaplerRequest req, StaplerResponse rsp) throws IOException, ServletException {
         rss(req, rsp, " all builds", getBuilds(), Run.FEED_ADAPTER);
     }
 
+    @RestrictedSince("since TODO 2.4x") @Restricted(NoExternalUse.class) // For Stapler only
     public void doRssFailed(StaplerRequest req, StaplerResponse rsp) throws IOException, ServletException {
         rss(req, rsp, " regression builds", getBuilds().regressionOnly(), Run.FEED_ADAPTER);
     }
 
+    @RestrictedSince("since TODO 2.4x") @Restricted(NoExternalUse.class) // For Stapler only
     public void doRssLatest(StaplerRequest req, StaplerResponse rsp) throws IOException, ServletException {
         final List<Run> lastBuilds = new ArrayList<Run>();
         for (AbstractProject<?,?> p : Jenkins.getInstance().allItems(AbstractProject.class)) {
@@ -995,6 +1001,7 @@ public class User extends AbstractModelObject implements AccessControlled, Descr
         return Collections.unmodifiableList(actions);
     }
 
+    @RestrictedSince("since TODO 2.4x") @Restricted(NoExternalUse.class) // For Stapler only
     public ContextMenu doContextMenu(StaplerRequest request, StaplerResponse response) throws Exception {
         return new ContextMenu().from(this,request,response);
     }

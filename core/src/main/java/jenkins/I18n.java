@@ -24,6 +24,7 @@
 package jenkins;
 
 import hudson.Extension;
+import hudson.RestrictedSince;
 import hudson.model.RootAction;
 import hudson.util.HttpResponses;
 import jenkins.util.ResourceBundleUtil;
@@ -83,6 +84,7 @@ public class I18n implements RootAction {
      * @param request The request.
      * @return The JSON response.
      */
+    @RestrictedSince("since TODO 2.4x") @Restricted(NoExternalUse.class) // For Stapler only
     public HttpResponse doResourceBundle(StaplerRequest request) {
         String baseName = request.getParameter("baseName");
 

@@ -26,6 +26,7 @@ package hudson.model;
 import hudson.EnvVars;
 import hudson.FilePath;
 import hudson.Launcher;
+import hudson.RestrictedSince;
 import hudson.tasks.BuildWrapper;
 import hudson.util.VariableResolver;
 
@@ -45,6 +46,8 @@ import org.apache.commons.fileupload.util.FileItemHeadersImpl;
 import org.apache.commons.io.FilenameUtils;
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang.StringUtils;
+import org.kohsuke.accmod.Restricted;
+import org.kohsuke.accmod.restrictions.NoExternalUse;
 import org.kohsuke.stapler.DataBoundConstructor;
 import org.kohsuke.stapler.StaplerRequest;
 import org.kohsuke.stapler.StaplerResponse;
@@ -200,6 +203,7 @@ public class FileParameterValue extends ParameterValue {
      * @throws ServletException
      * @throws IOException
      */
+    @RestrictedSince("since TODO 2.4x") @Restricted(NoExternalUse.class) // For Stapler only
     public void doDynamic(StaplerRequest request, StaplerResponse response) throws ServletException, IOException {
         if (("/" + originalFileName).equals(request.getRestOfPath())) {
             AbstractBuild build = (AbstractBuild)request.findAncestor(AbstractBuild.class).getObject();

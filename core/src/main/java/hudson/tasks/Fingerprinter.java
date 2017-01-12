@@ -27,6 +27,7 @@ import com.google.common.collect.ImmutableMap;
 import hudson.EnvVars;
 import hudson.Extension;
 import hudson.FilePath;
+import hudson.RestrictedSince;
 import jenkins.MasterToSlaveFileCallable;
 import hudson.Launcher;
 import jenkins.util.SystemProperties;
@@ -54,6 +55,8 @@ import org.acegisecurity.AccessDeniedException;
 import org.apache.tools.ant.DirectoryScanner;
 import org.apache.tools.ant.types.FileSet;
 import org.jenkinsci.Symbol;
+import org.kohsuke.accmod.Restricted;
+import org.kohsuke.accmod.restrictions.NoExternalUse;
 import org.kohsuke.stapler.AncestorInPath;
 import org.kohsuke.stapler.DataBoundConstructor;
 import org.kohsuke.stapler.QueryParameter;
@@ -257,10 +260,12 @@ public class Fingerprinter extends Recorder implements Serializable, DependencyD
         }
 
         @Deprecated
+        @RestrictedSince("since TODO 2.4x") @Restricted(NoExternalUse.class) // For Stapler only
         public FormValidation doCheck(@AncestorInPath AbstractProject project, @QueryParameter String value) throws IOException {
             return doCheckTargets(project, value);
         }
 
+        @RestrictedSince("since TODO 2.4x") @Restricted(NoExternalUse.class) // For Stapler only
         public FormValidation doCheckTargets(@AncestorInPath AbstractProject<?,?> project, @QueryParameter String value) throws IOException {
             if (project == null) {
                 return FormValidation.ok();

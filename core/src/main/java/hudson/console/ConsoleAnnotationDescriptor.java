@@ -25,9 +25,12 @@ package hudson.console;
 
 import hudson.DescriptorExtensionList;
 import hudson.ExtensionPoint;
+import hudson.RestrictedSince;
 import hudson.model.Descriptor;
 import jenkins.model.Jenkins;
 import hudson.util.TimeUnit2;
+import org.kohsuke.accmod.Restricted;
+import org.kohsuke.accmod.restrictions.NoExternalUse;
 import org.kohsuke.stapler.StaplerRequest;
 import org.kohsuke.stapler.StaplerResponse;
 import org.kohsuke.stapler.WebMethod;
@@ -79,11 +82,13 @@ public abstract class ConsoleAnnotationDescriptor extends Descriptor<ConsoleNote
     }
 
     @WebMethod(name="script.js")
+    @RestrictedSince("since TODO 2.4x") @Restricted(NoExternalUse.class) // For Stapler only
     public void doScriptJs(StaplerRequest req, StaplerResponse rsp) throws IOException, ServletException {
         rsp.serveFile(req, hasResource("/script.js"), TimeUnit2.DAYS.toMillis(1));
     }
 
     @WebMethod(name="style.css")
+    @RestrictedSince("since TODO 2.4x") @Restricted(NoExternalUse.class) // For Stapler only
     public void doStyleCss(StaplerRequest req, StaplerResponse rsp) throws IOException, ServletException {
         rsp.serveFile(req, hasResource("/style.css"), TimeUnit2.DAYS.toMillis(1));
     }

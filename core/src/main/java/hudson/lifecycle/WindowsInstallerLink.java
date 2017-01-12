@@ -26,6 +26,7 @@ package hudson.lifecycle;
 import com.sun.jna.Native;
 import hudson.Functions;
 import hudson.Launcher.LocalLauncher;
+import hudson.RestrictedSince;
 import hudson.model.ManagementLink;
 import hudson.model.TaskListener;
 import hudson.util.jna.Kernel32Utils;
@@ -38,6 +39,8 @@ import jenkins.util.SystemProperties;
 import hudson.util.StreamTaskListener;
 import hudson.util.jna.DotNet;
 import org.apache.commons.io.IOUtils;
+import org.kohsuke.accmod.Restricted;
+import org.kohsuke.accmod.restrictions.NoExternalUse;
 import org.kohsuke.stapler.QueryParameter;
 import org.kohsuke.stapler.StaplerRequest;
 import org.kohsuke.stapler.StaplerResponse;
@@ -106,6 +109,7 @@ public class WindowsInstallerLink extends ManagementLink {
     /**
      * Performs installation.
      */
+    @RestrictedSince("since TODO 2.4x") @Restricted(NoExternalUse.class) // For Stapler only
     public void doDoInstall(StaplerRequest req, StaplerResponse rsp, @QueryParameter("dir") String _dir) throws IOException, ServletException {
         if(installationDir!=null) {
             // installation already complete
@@ -167,6 +171,7 @@ public class WindowsInstallerLink extends ManagementLink {
         }
     }
 
+    @RestrictedSince("since TODO 2.4x") @Restricted(NoExternalUse.class) // For Stapler only
     public void doRestart(StaplerRequest req, StaplerResponse rsp) throws IOException, ServletException {
         if(installationDir==null) {
             // if the user reloads the page after Hudson has restarted,

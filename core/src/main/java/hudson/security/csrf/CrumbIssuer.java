@@ -7,6 +7,7 @@ package hudson.security.csrf;
 
 import javax.servlet.ServletRequest;
 
+import hudson.RestrictedSince;
 import hudson.init.Initializer;
 import jenkins.model.Jenkins;
 import org.kohsuke.stapler.Stapler;
@@ -192,6 +193,7 @@ public abstract class CrumbIssuer implements Describable<CrumbIssuer>, Extension
             super(instance);
         }
 
+        @RestrictedSince("since TODO 2.4x") @Restricted(NoExternalUse.class) // For Stapler only
         @Override public void doXml(StaplerRequest req, StaplerResponse rsp, @QueryParameter String xpath, @QueryParameter String wrapper, @QueryParameter String tree, @QueryParameter int depth) throws IOException, ServletException {
             String text;
             CrumbIssuer ci = (CrumbIssuer) bean;

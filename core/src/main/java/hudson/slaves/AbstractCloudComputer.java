@@ -23,7 +23,10 @@
  */
 package hudson.slaves;
 
+import hudson.RestrictedSince;
 import hudson.model.Computer;
+import org.kohsuke.accmod.Restricted;
+import org.kohsuke.accmod.restrictions.NoExternalUse;
 import org.kohsuke.stapler.HttpRedirect;
 import org.kohsuke.stapler.HttpResponse;
 import org.kohsuke.stapler.HttpResponses;
@@ -53,6 +56,7 @@ public class AbstractCloudComputer<T extends AbstractCloudSlave> extends SlaveCo
      * When the agent is deleted, free the node right away.
      */
     @Override
+    @RestrictedSince("since TODO 2.4x") @Restricted(NoExternalUse.class) // For Stapler only
     public HttpResponse doDoDelete() throws IOException {
         checkPermission(DELETE);
         try {

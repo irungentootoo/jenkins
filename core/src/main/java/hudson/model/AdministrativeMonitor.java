@@ -27,12 +27,15 @@ import hudson.ExtensionPoint;
 import hudson.ExtensionList;
 import hudson.Extension;
 import hudson.ExtensionPoint.LegacyInstancesAreScopedToHudson;
+import hudson.RestrictedSince;
 import hudson.triggers.SCMTrigger;
 
 import java.util.Set;
 import java.io.IOException;
 
 import jenkins.model.Jenkins;
+import org.kohsuke.accmod.Restricted;
+import org.kohsuke.accmod.restrictions.NoExternalUse;
 import org.kohsuke.stapler.StaplerRequest;
 import org.kohsuke.stapler.StaplerResponse;
 
@@ -142,6 +145,7 @@ public abstract class AdministrativeMonitor extends AbstractModelObject implemen
     /**
      * URL binding to disable this monitor.
      */
+    @RestrictedSince("since TODO 2.4x") @Restricted(NoExternalUse.class) // For Stapler only
     public void doDisable(StaplerRequest req, StaplerResponse rsp) throws IOException {
         Jenkins.getInstance().checkPermission(Jenkins.ADMINISTER);
         disable(true);

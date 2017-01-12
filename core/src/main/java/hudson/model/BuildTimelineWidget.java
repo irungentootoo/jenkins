@@ -23,7 +23,10 @@
  */
 package hudson.model;
 
+import hudson.RestrictedSince;
 import hudson.util.RunList;
+import org.kohsuke.accmod.Restricted;
+import org.kohsuke.accmod.restrictions.NoExternalUse;
 import org.kohsuke.stapler.QueryParameter;
 import org.kohsuke.stapler.StaplerRequest;
 import org.koshuke.stapler.simile.timeline.Event;
@@ -58,6 +61,7 @@ public class BuildTimelineWidget {
         return builds.getLastBuild();
     }
 
+    @RestrictedSince("since TODO 2.4x") @Restricted(NoExternalUse.class) // For Stapler only
     public TimelineEventList doData(StaplerRequest req, @QueryParameter long min, @QueryParameter long max) throws IOException {
         TimelineEventList result = new TimelineEventList();
         for (Run r : builds.byTimestamp(min,max)) {

@@ -24,12 +24,15 @@
 package hudson.widgets;
 
 import hudson.Functions;
+import hudson.RestrictedSince;
 import jenkins.util.SystemProperties;
 import hudson.model.ModelObject;
 import hudson.model.Run;
 
 import jenkins.widgets.HistoryPageEntry;
 import jenkins.widgets.HistoryPageFilter;
+import org.kohsuke.accmod.Restricted;
+import org.kohsuke.accmod.restrictions.NoExternalUse;
 import org.kohsuke.stapler.Header;
 import org.kohsuke.stapler.Stapler;
 import org.kohsuke.stapler.StaplerRequest;
@@ -214,6 +217,7 @@ public class HistoryWidget<O extends ModelObject,T> extends Widget {
      *      The build 'number' to fetch. This is string because various variants
      *      uses non-numbers as the build key.
      */
+    @RestrictedSince("since TODO 2.4x") @Restricted(NoExternalUse.class) // For Stapler only
     public void doAjax( StaplerRequest req, StaplerResponse rsp,
 		  @Header("n") String n ) throws IOException, ServletException {
 

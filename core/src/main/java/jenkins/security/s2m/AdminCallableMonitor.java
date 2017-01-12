@@ -2,10 +2,13 @@ package jenkins.security.s2m;
 
 import hudson.Extension;
 import hudson.FilePath;
+import hudson.RestrictedSince;
 import hudson.model.AdministrativeMonitor;
 import hudson.remoting.Callable;
 import jenkins.model.Jenkins;
 import org.jenkinsci.Symbol;
+import org.kohsuke.accmod.Restricted;
+import org.kohsuke.accmod.restrictions.NoExternalUse;
 import org.kohsuke.stapler.HttpResponse;
 import org.kohsuke.stapler.HttpResponses;
 import org.kohsuke.stapler.QueryParameter;
@@ -50,6 +53,7 @@ public class AdminCallableMonitor extends AdministrativeMonitor {
     /**
      * Depending on whether the user said "examin" or "dismiss", send him to the right place.
      */
+    @RestrictedSince("since TODO 2.4x") @Restricted(NoExternalUse.class) // For Stapler only
     public HttpResponse doAct(@QueryParameter String dismiss) throws IOException {
         if(dismiss!=null) {
             disable(true);
@@ -59,6 +63,7 @@ public class AdminCallableMonitor extends AdministrativeMonitor {
         }
     }
 
+    @RestrictedSince("since TODO 2.4x") @Restricted(NoExternalUse.class) // For Stapler only
     public HttpResponse doIndex() {
         return HttpResponses.redirectTo("rule/");
     }

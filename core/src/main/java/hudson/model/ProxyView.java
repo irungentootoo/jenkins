@@ -24,6 +24,7 @@
 package hudson.model;
 
 import hudson.Extension;
+import hudson.RestrictedSince;
 import hudson.Util;
 import hudson.model.Descriptor.FormException;
 import hudson.util.FormValidation;
@@ -33,6 +34,8 @@ import javax.servlet.ServletException;
 
 import jenkins.model.Jenkins;
 import org.jenkinsci.Symbol;
+import org.kohsuke.accmod.Restricted;
+import org.kohsuke.accmod.restrictions.NoExternalUse;
 import org.kohsuke.stapler.DataBoundConstructor;
 import org.kohsuke.stapler.QueryParameter;
 import org.kohsuke.stapler.Stapler;
@@ -102,6 +105,7 @@ public class ProxyView extends View implements StaplerFallback {
 
     @RequirePOST
     @Override
+    @RestrictedSince("since TODO 2.4x") @Restricted(NoExternalUse.class) // For Stapler only
     public Item doCreateItem(StaplerRequest req, StaplerResponse rsp) throws IOException, ServletException {
         return getProxiedView().doCreateItem(req, rsp);
     }
@@ -109,6 +113,7 @@ public class ProxyView extends View implements StaplerFallback {
     /**
      * Fails if a global view with the given name does not exist.
      */
+    @RestrictedSince("since TODO 2.4x") @Restricted(NoExternalUse.class) // For Stapler only
     public FormValidation doViewExistsCheck(@QueryParameter String value) {
         checkPermission(View.CREATE);
 

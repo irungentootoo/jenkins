@@ -29,6 +29,7 @@ import hudson.ExtensionListView;
 import hudson.Functions;
 import hudson.Platform;
 import hudson.PluginManager;
+import hudson.RestrictedSince;
 import hudson.cli.declarative.CLIResolver;
 import hudson.model.listeners.ItemListener;
 import hudson.slaves.ComputerListener;
@@ -37,6 +38,8 @@ import hudson.util.FormValidation;
 import javax.annotation.Nonnull;
 import jenkins.model.Jenkins;
 import org.jvnet.hudson.reactor.ReactorException;
+import org.kohsuke.accmod.Restricted;
+import org.kohsuke.accmod.restrictions.NoExternalUse;
 import org.kohsuke.stapler.QueryParameter;
 import org.kohsuke.stapler.Stapler;
 import org.kohsuke.stapler.StaplerRequest;
@@ -182,6 +185,7 @@ public class Hudson extends Jenkins {
      *   As on 1.267, moved to "/log/rss..."
      */
     @Deprecated
+    @RestrictedSince("since TODO 2.4x") @Restricted(NoExternalUse.class) // For Stapler only
     public void doLogRss( StaplerRequest req, StaplerResponse rsp ) throws IOException, ServletException {
         String qs = req.getQueryString();
         rsp.sendRedirect2("./log/rss"+(qs==null?"":'?'+qs));
@@ -192,6 +196,7 @@ public class Hudson extends Jenkins {
      *      Define your own check method, instead of relying on this generic one.
      */
     @Deprecated
+    @RestrictedSince("since TODO 2.4x") @Restricted(NoExternalUse.class) // For Stapler only
     public void doFieldCheck(StaplerRequest req, StaplerResponse rsp) throws IOException, ServletException {
         doFieldCheck(
                 fixEmpty(req.getParameter("value")),
@@ -214,6 +219,7 @@ public class Hudson extends Jenkins {
      *      or define your own check method, instead of relying on this generic one.
      */
     @Deprecated
+    @RestrictedSince("since TODO 2.4x") @Restricted(NoExternalUse.class) // For Stapler only
     public FormValidation doFieldCheck(@QueryParameter(fixEmpty=true) String value,
                                        @QueryParameter(fixEmpty=true) String type,
                                        @QueryParameter(fixEmpty=true) String errorText,

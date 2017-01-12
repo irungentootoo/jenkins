@@ -20,6 +20,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletRequestWrapper;
 import javax.servlet.http.HttpServletResponse;
 
+import hudson.RestrictedSince;
 import jenkins.util.SystemProperties;
 import org.acegisecurity.Authentication;
 import org.acegisecurity.context.SecurityContextHolder;
@@ -214,6 +215,7 @@ public class SetupWizard extends PageDecorator {
     /**
      * Called during the initial setup to create an admin user
      */
+    @RestrictedSince("since TODO 2.4x") @Restricted(NoExternalUse.class) // For Stapler only
     public void doCreateAdminUser(StaplerRequest req, StaplerResponse rsp) throws IOException, ServletException {
         Jenkins j = Jenkins.getInstance();
         j.checkPermission(Jenkins.ADMINISTER);
@@ -452,6 +454,7 @@ public class SetupWizard extends PageDecorator {
     /**
      * Remove the setupWizard filter, ensure all updates are written to disk, etc
      */
+    @RestrictedSince("since TODO 2.4x") @Restricted(NoExternalUse.class) // For Stapler only
     public HttpResponse doCompleteInstall() throws IOException, ServletException {
         completeSetup();
         return HttpResponses.okJSON();

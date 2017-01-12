@@ -1,9 +1,12 @@
 package jenkins.model;
 
 import hudson.Extension;
+import hudson.RestrictedSince;
 import hudson.model.UnprotectedRootAction;
 import hudson.util.TimeUnit2;
 import org.jenkinsci.Symbol;
+import org.kohsuke.accmod.Restricted;
+import org.kohsuke.accmod.restrictions.NoExternalUse;
 import org.kohsuke.stapler.StaplerRequest;
 import org.kohsuke.stapler.StaplerResponse;
 
@@ -46,6 +49,7 @@ public class AssetManager implements UnprotectedRootAction {
     /**
      * Exposes assets in the core classloader over HTTP.
      */
+    @RestrictedSince("since TODO 2.4x") @Restricted(NoExternalUse.class) // For Stapler only
     public void doDynamic(StaplerRequest req, StaplerResponse rsp) throws IOException, ServletException {
         String path = req.getRestOfPath();
         URL resource = findResource(path);

@@ -31,8 +31,11 @@ import java.util.List;
 
 import javax.servlet.ServletException;
 
+import hudson.RestrictedSince;
 import jenkins.model.Jenkins;
 import org.jenkinsci.Symbol;
+import org.kohsuke.accmod.Restricted;
+import org.kohsuke.accmod.restrictions.NoExternalUse;
 import org.kohsuke.stapler.StaplerRequest;
 import org.kohsuke.stapler.StaplerResponse;
 import org.kohsuke.stapler.DataBoundConstructor;
@@ -64,6 +67,7 @@ public class MyView extends View {
 
     @RequirePOST
     @Override
+    @RestrictedSince("since TODO 2.4x") @Restricted(NoExternalUse.class) // For Stapler only
     public TopLevelItem doCreateItem(StaplerRequest req, StaplerResponse rsp)
             throws IOException, ServletException {
         ItemGroup<? extends TopLevelItem> ig = getOwnerItemGroup();

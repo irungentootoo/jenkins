@@ -64,6 +64,7 @@ import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import hudson.model.Items;
 import jenkins.model.ParameterizedJobMixIn;
 import org.jenkinsci.Symbol;
+import org.kohsuke.accmod.Restricted;
 
 /**
  * Triggers a {@link Build}.

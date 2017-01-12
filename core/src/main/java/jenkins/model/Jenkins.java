@@ -1272,6 +1272,7 @@ public class Jenkins extends AbstractCIBase implements DirectlyModifiableTopLeve
             return Jenkins.getSlaveAgentPortInitialValue(slaveAgentPort);
         }
 
+        @RestrictedSince("since TODO 2.4x") @Restricted(NoExternalUse.class) // For Stapler only
         public void doAct(StaplerRequest req, StaplerResponse rsp) throws IOException {
             j.forceSetSlaveAgentPort(getExpectedPort());
             rsp.sendRedirect2(req.getContextPath() + "/manage");
@@ -2154,10 +2155,12 @@ public class Jenkins extends AbstractCIBase implements DirectlyModifiableTopLeve
             return false;
         }
 
+        @RestrictedSince("since TODO 2.4x") @Restricted(NoExternalUse.class) // For Stapler only
         public FormValidation doCheckNumExecutors(@QueryParameter String value) {
             return FormValidation.validateNonNegativeInteger(value);
         }
 
+        @RestrictedSince("since TODO 2.4x") @Restricted(NoExternalUse.class) // For Stapler only
         public FormValidation doCheckRawBuildsDir(@QueryParameter String value) {
             // do essentially what expandVariablesForDirectory does, without an Item
             String replacedValue = expandVariablesForDirectory(value,
@@ -3655,6 +3658,7 @@ public class Jenkins extends AbstractCIBase implements DirectlyModifiableTopLeve
      * Accepts submission from the node configuration page.
      */
     @RequirePOST
+    @RestrictedSince("since TODO 2.4x") @Restricted(NoExternalUse.class) // For Stapler only
     public synchronized void doConfigExecutorsSubmit( StaplerRequest req, StaplerResponse rsp ) throws IOException, ServletException, FormException {
         checkPermission(ADMINISTER);
 
@@ -3680,11 +3684,13 @@ public class Jenkins extends AbstractCIBase implements DirectlyModifiableTopLeve
      * Accepts the new description.
      */
     @RequirePOST
+    @RestrictedSince("since TODO 2.4x") @Restricted(NoExternalUse.class) // For Stapler only
     public synchronized void doSubmitDescription( StaplerRequest req, StaplerResponse rsp ) throws IOException, ServletException {
         getPrimaryView().doSubmitDescription(req, rsp);
     }
 
     @RequirePOST // TODO does not seem to work on _either_ overload!
+    @RestrictedSince("since TODO 2.4x") @Restricted(NoExternalUse.class) // For Stapler only
     public synchronized HttpRedirect doQuietDown() throws IOException {
         try {
             return doQuietDown(false,0);
@@ -3700,6 +3706,7 @@ public class Jenkins extends AbstractCIBase implements DirectlyModifiableTopLeve
      * @param timeout If non-zero, only block up to the specified number of milliseconds
      */
     @RequirePOST
+    @RestrictedSince("since TODO 2.4x") @Restricted(NoExternalUse.class) // For Stapler only
     public HttpRedirect doQuietDown(@QueryParameter boolean block, @QueryParameter int timeout) throws InterruptedException, IOException {
         synchronized (this) {
             checkPermission(ADMINISTER);
@@ -3721,6 +3728,7 @@ public class Jenkins extends AbstractCIBase implements DirectlyModifiableTopLeve
      * Cancel previous quiet down Jenkins - preparation for a restart
      */
     @RequirePOST // TODO the cancel link needs to be updated accordingly
+    @RestrictedSince("since TODO 2.4x") @Restricted(NoExternalUse.class) // For Stapler only
     public synchronized HttpRedirect doCancelQuietDown() {
         checkPermission(ADMINISTER);
         isQuietingDown = false;
@@ -3740,6 +3748,7 @@ public class Jenkins extends AbstractCIBase implements DirectlyModifiableTopLeve
     /**
      * Backward compatibility. Redirect to the thread dump.
      */
+    @RestrictedSince("since TODO 2.4x") @Restricted(NoExternalUse.class) // For Stapler only
     public void doClassicThreadDump(StaplerResponse rsp) throws IOException, ServletException {
         rsp.sendRedirect2("threadDump");
     }
@@ -3809,6 +3818,7 @@ public class Jenkins extends AbstractCIBase implements DirectlyModifiableTopLeve
     }
 
     @RequirePOST
+    @RestrictedSince("since TODO 2.4x") @Restricted(NoExternalUse.class) // For Stapler only
     public synchronized void doCreateView( StaplerRequest req, StaplerResponse rsp ) throws IOException, ServletException, FormException {
         checkPermission(View.CREATE);
         addView(View.create(req,rsp, this));
@@ -3858,6 +3868,7 @@ public class Jenkins extends AbstractCIBase implements DirectlyModifiableTopLeve
      *
      * @see BasicAuthenticationFilter
      */
+    @RestrictedSince("since TODO 2.4x") @Restricted(NoExternalUse.class) // For Stapler only
     public void doSecured( StaplerRequest req, StaplerResponse rsp ) throws IOException, ServletException {
         // TODO fire something in SecurityListener? (seems to be used only for REST calls when LegacySecurityRealm is active)
 
@@ -3880,6 +3891,7 @@ public class Jenkins extends AbstractCIBase implements DirectlyModifiableTopLeve
      * Called once the user logs in. Just forward to the top page.
      * Used only by {@link LegacySecurityRealm}.
      */
+    @RestrictedSince("since TODO 2.4x") @Restricted(NoExternalUse.class) // For Stapler only
     public void doLoginEntry( StaplerRequest req, StaplerResponse rsp ) throws IOException {
         if(req.getUserPrincipal()==null) {
             rsp.sendRedirect2("noPrincipal");
@@ -3908,6 +3920,7 @@ public class Jenkins extends AbstractCIBase implements DirectlyModifiableTopLeve
     /**
      * Logs out the user.
      */
+    @RestrictedSince("since TODO 2.4x") @Restricted(NoExternalUse.class) // For Stapler only
     public void doLogout( StaplerRequest req, StaplerResponse rsp ) throws IOException, ServletException {
         String user = getAuthentication().getName();
         securityRealm.doLogout(req, rsp);
@@ -3917,10 +3930,12 @@ public class Jenkins extends AbstractCIBase implements DirectlyModifiableTopLeve
     /**
      * Serves jar files for JNLP agents.
      */
+    @RestrictedSince("since TODO 2.4x") @Restricted(NoExternalUse.class) // For Stapler only
     public Slave.JnlpJar getJnlpJars(String fileName) {
         return new Slave.JnlpJar(fileName);
     }
 
+    @RestrictedSince("since TODO 2.4x") @Restricted(NoExternalUse.class) // For Stapler only
     public Slave.JnlpJar doJnlpJars(StaplerRequest req) {
         return new Slave.JnlpJar(req.getRestOfPath().substring(1));
     }
@@ -3929,6 +3944,7 @@ public class Jenkins extends AbstractCIBase implements DirectlyModifiableTopLeve
      * Reloads the configuration.
      */
     @RequirePOST
+    @RestrictedSince("since TODO 2.4x") @Restricted(NoExternalUse.class) // For Stapler only
     public synchronized HttpResponse doReload() throws IOException {
         checkPermission(ADMINISTER);
         LOGGER.log(Level.WARNING, "Reloading Jenkins as requested by {0}", getAuthentication().getName());
@@ -3979,6 +3995,7 @@ public class Jenkins extends AbstractCIBase implements DirectlyModifiableTopLeve
     /**
      * Do a finger-print check.
      */
+    @RestrictedSince("since TODO 2.4x") @Restricted(NoExternalUse.class) // For Stapler only
     public void doDoFingerprintCheck( StaplerRequest req, StaplerResponse rsp ) throws IOException, ServletException {
         // Parse the request
         MultipartFormDataParser p = new MultipartFormDataParser(req);
@@ -3998,6 +4015,7 @@ public class Jenkins extends AbstractCIBase implements DirectlyModifiableTopLeve
      */
     @edu.umd.cs.findbugs.annotations.SuppressFBWarnings("DM_GC")
     @RequirePOST
+    @RestrictedSince("since TODO 2.4x") @Restricted(NoExternalUse.class) // For Stapler only
     public void doGc(StaplerResponse rsp) throws IOException {
         checkPermission(Jenkins.ADMINISTER);
         System.gc();
@@ -4010,10 +4028,12 @@ public class Jenkins extends AbstractCIBase implements DirectlyModifiableTopLeve
      * End point that intentionally throws an exception to test the error behaviour.
      * @since 1.467
      */
+    @RestrictedSince("since TODO 2.4x") @Restricted(NoExternalUse.class) // For Stapler only
     public void doException() {
         throw new RuntimeException();
     }
 
+    @RestrictedSince("since TODO 2.4x") @Restricted(NoExternalUse.class) // For Stapler only
     public ContextMenu doContextMenu(StaplerRequest request, StaplerResponse response) throws IOException, JellyException {
         ContextMenu menu = new ContextMenu().from(this, request, response);
         for (MenuItem i : menu.items) {
@@ -4025,6 +4045,7 @@ public class Jenkins extends AbstractCIBase implements DirectlyModifiableTopLeve
         return menu;
     }
 
+    @RestrictedSince("since TODO 2.4x") @Restricted(NoExternalUse.class) // For Stapler only
     public ContextMenu doChildrenContextMenu(StaplerRequest request, StaplerResponse response) throws Exception {
         ContextMenu menu = new ContextMenu();
         for (View view : getViews()) {
@@ -4045,6 +4066,7 @@ public class Jenkins extends AbstractCIBase implements DirectlyModifiableTopLeve
      * Useful to make sure OutOfMemoryHeapDump setting.
      */
     @RequirePOST
+    @RestrictedSince("since TODO 2.4x") @Restricted(NoExternalUse.class) // For Stapler only
     public void doSimulateOutOfMemory() throws IOException {
         checkPermission(ADMINISTER);
 
@@ -4057,6 +4079,7 @@ public class Jenkins extends AbstractCIBase implements DirectlyModifiableTopLeve
     /**
      * Binds /userContent/... to $JENKINS_HOME/userContent.
      */
+    @RestrictedSince("since TODO 2.4x") @Restricted(NoExternalUse.class) // For Stapler only
     public DirectoryBrowserSupport doUserContent() {
         return new DirectoryBrowserSupport(this,getRootPath().child("userContent"),"User content","folder.png",true);
     }
@@ -4067,6 +4090,7 @@ public class Jenkins extends AbstractCIBase implements DirectlyModifiableTopLeve
      * This first replaces "app" to {@link HudsonIsRestarting}
      */
     @CLIMethod(name="restart")
+    @RestrictedSince("since TODO 2.4x") @Restricted(NoExternalUse.class) // For Stapler only
     public void doRestart(StaplerRequest req, StaplerResponse rsp) throws IOException, ServletException, RestartNotSupportedException {
         checkPermission(ADMINISTER);
         if (req != null && req.getMethod().equals("GET")) {
@@ -4088,6 +4112,7 @@ public class Jenkins extends AbstractCIBase implements DirectlyModifiableTopLeve
      * @since 1.332
      */
     @CLIMethod(name="safe-restart")
+    @RestrictedSince("since TODO 2.4x") @Restricted(NoExternalUse.class) // For Stapler only
     public HttpResponse doSafeRestart(StaplerRequest req) throws IOException, ServletException, RestartNotSupportedException {
         checkPermission(ADMINISTER);
         if (req != null && req.getMethod().equals("GET"))
@@ -4197,6 +4222,7 @@ public class Jenkins extends AbstractCIBase implements DirectlyModifiableTopLeve
      */
     @CLIMethod(name="shutdown")
     @RequirePOST
+    @RestrictedSince("since TODO 2.4x") @Restricted(NoExternalUse.class) // For Stapler only
     public void doExit( StaplerRequest req, StaplerResponse rsp ) throws IOException {
         checkPermission(ADMINISTER);
         LOGGER.severe(String.format("Shutting down VM as requested by %s from %s",
@@ -4219,6 +4245,7 @@ public class Jenkins extends AbstractCIBase implements DirectlyModifiableTopLeve
      */
     @CLIMethod(name="safe-shutdown")
     @RequirePOST
+    @RestrictedSince("since TODO 2.4x") @Restricted(NoExternalUse.class) // For Stapler only
     public HttpResponse doSafeExit(StaplerRequest req) throws IOException {
         checkPermission(ADMINISTER);
         isQuietingDown = true;
@@ -4266,6 +4293,7 @@ public class Jenkins extends AbstractCIBase implements DirectlyModifiableTopLeve
      * For system diagnostics.
      * Run arbitrary Groovy script.
      */
+    @RestrictedSince("since TODO 2.4x") @Restricted(NoExternalUse.class) // For Stapler only
     public void doScript(StaplerRequest req, StaplerResponse rsp) throws IOException, ServletException {
         _doScript(req, rsp, req.getView(this, "_script.jelly"), FilePath.localChannel, getACL());
     }
@@ -4273,6 +4301,7 @@ public class Jenkins extends AbstractCIBase implements DirectlyModifiableTopLeve
     /**
      * Run arbitrary Groovy script and return result as plain text.
      */
+    @RestrictedSince("since TODO 2.4x") @Restricted(NoExternalUse.class) // For Stapler only
     public void doScriptText(StaplerRequest req, StaplerResponse rsp) throws IOException, ServletException {
         _doScript(req, rsp, req.getView(this, "_scriptText.jelly"), FilePath.localChannel, getACL());
     }
@@ -4311,6 +4340,7 @@ public class Jenkins extends AbstractCIBase implements DirectlyModifiableTopLeve
      * This is useful for system administration as well as unit testing.
      */
     @RequirePOST
+    @RestrictedSince("since TODO 2.4x") @Restricted(NoExternalUse.class) // For Stapler only
     public void doEval(StaplerRequest req, StaplerResponse rsp) throws IOException, ServletException {
         checkPermission(RUN_SCRIPTS);
 
@@ -4326,6 +4356,7 @@ public class Jenkins extends AbstractCIBase implements DirectlyModifiableTopLeve
     /**
      * Sign up for the user account.
      */
+    @RestrictedSince("since TODO 2.4x") @Restricted(NoExternalUse.class) // For Stapler only
     public void doSignup( StaplerRequest req, StaplerResponse rsp ) throws IOException, ServletException {
         if (getSecurityRealm().allowsSignup()) {
             req.getView(getSecurityRealm(), "signup.jelly").forward(req, rsp);
@@ -4337,6 +4368,7 @@ public class Jenkins extends AbstractCIBase implements DirectlyModifiableTopLeve
     /**
      * Changes the icon size by changing the cookie
      */
+    @RestrictedSince("since TODO 2.4x") @Restricted(NoExternalUse.class) // For Stapler only
     public void doIconSize( StaplerRequest req, StaplerResponse rsp ) throws IOException, ServletException {
         String qs = req.getQueryString();
         if(qs==null)
@@ -4350,6 +4382,7 @@ public class Jenkins extends AbstractCIBase implements DirectlyModifiableTopLeve
     }
 
     @RequirePOST
+    @RestrictedSince("since TODO 2.4x") @Restricted(NoExternalUse.class) // For Stapler only
     public void doFingerprintCleanup(StaplerResponse rsp) throws IOException {
         FingerprintCleanupThread.invoke();
         rsp.setStatus(HttpServletResponse.SC_OK);
@@ -4358,6 +4391,7 @@ public class Jenkins extends AbstractCIBase implements DirectlyModifiableTopLeve
     }
 
     @RequirePOST
+    @RestrictedSince("since TODO 2.4x") @Restricted(NoExternalUse.class) // For Stapler only
     public void doWorkspaceCleanup(StaplerResponse rsp) throws IOException {
         WorkspaceCleanupThread.invoke();
         rsp.setStatus(HttpServletResponse.SC_OK);
@@ -4368,6 +4402,7 @@ public class Jenkins extends AbstractCIBase implements DirectlyModifiableTopLeve
     /**
      * If the user chose the default JDK, make sure we got 'java' in PATH.
      */
+    @RestrictedSince("since TODO 2.4x") @Restricted(NoExternalUse.class) // For Stapler only
     public FormValidation doDefaultJDKCheck(StaplerRequest request, @QueryParameter String value) {
         if(!JDK.isDefaultName(value))
             // assume the user configured named ones properly in system config ---
@@ -4385,6 +4420,7 @@ public class Jenkins extends AbstractCIBase implements DirectlyModifiableTopLeve
      * Checks if a top-level view with the given name exists and
      * make sure that the name is good as a view name.
      */
+    @RestrictedSince("since TODO 2.4x") @Restricted(NoExternalUse.class) // For Stapler only
     public FormValidation doCheckViewName(@QueryParameter String value) {
         checkPermission(View.CREATE);
 
@@ -4411,6 +4447,7 @@ public class Jenkins extends AbstractCIBase implements DirectlyModifiableTopLeve
      * @deprecated 1.512
      */
     @Deprecated
+    @RestrictedSince("since TODO 2.4x") @Restricted(NoExternalUse.class) // For Stapler only
     public FormValidation doViewExistsCheck(@QueryParameter String value) {
         checkPermission(View.CREATE);
 
@@ -4431,6 +4468,7 @@ public class Jenkins extends AbstractCIBase implements DirectlyModifiableTopLeve
      * strategy here, though the current implementation is based on
      * file extensions.
      */
+    @RestrictedSince("since TODO 2.4x") @Restricted(NoExternalUse.class) // For Stapler only
     public void doResources(StaplerRequest req, StaplerResponse rsp) throws IOException, ServletException {
         String path = req.getRestOfPath();
         // cut off the "..." portion of /resources/.../path/to/file
@@ -4680,6 +4718,7 @@ public class Jenkins extends AbstractCIBase implements DirectlyModifiableTopLeve
      * @param displayName The display name to test
      * @param jobName The name of the job the user is configuring
      */
+    @RestrictedSince("since TODO 2.4x") @Restricted(NoExternalUse.class) // For Stapler only
     public FormValidation doCheckDisplayName(@QueryParameter String displayName,
             @QueryParameter String jobName) {
         displayName = displayName.trim();
@@ -4754,17 +4793,20 @@ public class Jenkins extends AbstractCIBase implements DirectlyModifiableTopLeve
          * Report an error.
          */
         @Override
+        @RestrictedSince("since TODO 2.4x") @Restricted(NoExternalUse.class) // For Stapler only
         public HttpResponse doDoDelete() throws IOException {
             throw HttpResponses.status(SC_BAD_REQUEST);
         }
 
         @Override
+        @RestrictedSince("since TODO 2.4x") @Restricted(NoExternalUse.class) // For Stapler only
         public void doConfigSubmit(StaplerRequest req, StaplerResponse rsp) throws IOException, ServletException, FormException {
             Jenkins.getInstance().doConfigExecutorsSubmit(req, rsp);
         }
 
         @WebMethod(name="config.xml")
         @Override
+        @RestrictedSince("since TODO 2.4x") @Restricted(NoExternalUse.class) // For Stapler only
         public void doConfigDotXml(StaplerRequest req, StaplerResponse rsp) throws IOException, ServletException {
             throw HttpResponses.status(SC_BAD_REQUEST);
         }
@@ -4794,6 +4836,7 @@ public class Jenkins extends AbstractCIBase implements DirectlyModifiableTopLeve
         }
 
         @RequirePOST
+        @RestrictedSince("since TODO 2.4x") @Restricted(NoExternalUse.class) // For Stapler only
         public void doLaunchSlaveAgent(StaplerRequest req, StaplerResponse rsp) throws IOException, ServletException {
             // this computer never returns null from channel, so
             // this method shall never be invoked.

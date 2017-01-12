@@ -26,6 +26,7 @@ package jenkins.model;
 import hudson.DescriptorExtensionList;
 import hudson.Extension;
 import hudson.ExtensionPoint;
+import hudson.RestrictedSince;
 import hudson.Util;
 import hudson.model.Describable;
 import hudson.model.Descriptor;
@@ -41,6 +42,8 @@ import javax.servlet.ServletException;
 
 import org.apache.commons.lang.StringUtils;
 import org.jenkinsci.Symbol;
+import org.kohsuke.accmod.Restricted;
+import org.kohsuke.accmod.restrictions.NoExternalUse;
 import org.kohsuke.stapler.DataBoundConstructor;
 import org.kohsuke.stapler.QueryParameter;
 
@@ -190,6 +193,7 @@ public abstract class ProjectNamingStrategy implements Describable<ProjectNaming
                 return "/help/system-config/patternJobNamingStrategy.html";
             }
             
+            @RestrictedSince("since TODO 2.4x") @Restricted(NoExternalUse.class) // For Stapler only
             public FormValidation doCheckNamePattern(@QueryParameter String value) 
                     throws IOException, ServletException {
                 String pattern = Util.fixEmptyAndTrim(value);

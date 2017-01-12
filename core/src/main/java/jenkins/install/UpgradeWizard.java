@@ -11,6 +11,7 @@ import java.util.logging.Logger;
 import javax.inject.Provider;
 import javax.servlet.http.HttpSession;
 
+import hudson.RestrictedSince;
 import org.apache.commons.io.FileUtils;
 import org.kohsuke.accmod.Restricted;
 import org.kohsuke.accmod.restrictions.NoExternalUse;
@@ -116,6 +117,7 @@ public class UpgradeWizard extends InstallState {
     /**
      * Call this to show the upgrade wizard
      */
+    @RestrictedSince("since TODO 2.4x") @Restricted(NoExternalUse.class) // For Stapler only
     public HttpResponse doShowUpgradeWizard() throws Exception {
         Jenkins.getInstance().checkPermission(Jenkins.ADMINISTER);
         HttpSession session = Stapler.getCurrentRequest().getSession(true);
@@ -126,6 +128,7 @@ public class UpgradeWizard extends InstallState {
     /**
      * Call this to hide the upgrade wizard
      */
+    @RestrictedSince("since TODO 2.4x") @Restricted(NoExternalUse.class) // For Stapler only
     public HttpResponse doHideUpgradeWizard() {
         Jenkins.getInstance().checkPermission(Jenkins.ADMINISTER);
         HttpSession session = Stapler.getCurrentRequest().getSession(false);
@@ -139,6 +142,7 @@ public class UpgradeWizard extends InstallState {
      * Snooze the upgrade wizard notice.
      */
     @RequirePOST
+    @RestrictedSince("since TODO 2.4x") @Restricted(NoExternalUse.class) // For Stapler only
     public HttpResponse doSnooze() throws IOException {
         Jenkins.getInstance().checkPermission(Jenkins.ADMINISTER);
         File f = SetupWizard.getUpdateStateFile();

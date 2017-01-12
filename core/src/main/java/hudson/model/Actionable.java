@@ -24,6 +24,7 @@
 package hudson.model;
 
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
+import hudson.RestrictedSince;
 import hudson.Util;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -36,6 +37,8 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import jenkins.model.ModelObjectWithContextMenu;
 import jenkins.model.TransientActionFactory;
+import org.kohsuke.accmod.Restricted;
+import org.kohsuke.accmod.restrictions.NoExternalUse;
 import org.kohsuke.stapler.StaplerRequest;
 import org.kohsuke.stapler.StaplerResponse;
 import org.kohsuke.stapler.export.Exported;
@@ -353,6 +356,7 @@ public abstract class Actionable extends AbstractModelObject implements ModelObj
         return null;
     }
 
+    @RestrictedSince("since TODO 2.4x") @Restricted(NoExternalUse.class) // For Stapler only
     @Override public ContextMenu doContextMenu(StaplerRequest request, StaplerResponse response) throws Exception {
         return new ContextMenu().from(this,request,response);
     }
